@@ -3,9 +3,26 @@ entries:
   logging:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-12-05T11:48:24.459009+05:30"
+    created: "2019-12-05T08:43:19.036115772Z"
+    dependencies:
+    - condition: kibana.enabled
+      name: kibana
+      repository: https://helm.elastic.co
+      version: 7.4.1
+    - condition: elasticsearch.enabled
+      name: elasticsearch
+      repository: https://helm.elastic.co
+      version: 7.4.1
+    - condition: fluentd.enabled
+      name: fluentd
+      repository: https://kubernetes-charts.storage.googleapis.com/
+      version: 2.3.1
+    - condition: hadoop.enabled
+      name: hadoop
+      repository: https://kubernetes-charts.storage.googleapis.com/
+      version: 1.1.1
     description: A helm chart of setup logging infra using EFK on Kubernetes
-    digest: d3426923d4b90f243e39f59372d2b0b9502efae6ffb9dd5f67e77291f6ae2049
+    digest: 41a542e046c6e2d97f7e5727b6ad45a9e9f642f71fb35b6266fd5423ceb26e92
     name: logging
     urls:
     - https://qubole.github.io/charts/logging-0.1.0.tgz
@@ -13,12 +30,21 @@ entries:
   monitoring:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-12-05T11:48:24.461543+05:30"
+    created: "2019-12-05T08:43:19.045853648Z"
+    dependencies:
+    - condition: prometheus.enabled
+      name: prometheus
+      repository: https://kubernetes-charts.storage.googleapis.com/
+      version: 9.3.1
+    - condition: prometheus-adapter.enabled
+      name: prometheus-adapter
+      repository: https://kubernetes-charts.storage.googleapis.com/
+      version: 1.4.0
     description: A Helm chart for setting up Monitoring Framework using Prometheus
       on Kubernetes
-    digest: 2b529c3bbb2756fdd1689a6d8821fb5852b05a6c940ea7c8351fa44533ddb0be
+    digest: d346febfa7b973782f3a18e8a03e4213d68a0e5fa8f1d29c89d4b468550bf8bb
     name: monitoring
     urls:
     - https://qubole.github.io/charts/monitoring-0.1.0.tgz
     version: 0.1.0
-generated: "2019-12-05T11:48:24.454971+05:30"
+generated: "2019-12-05T08:43:19.026512298Z"
