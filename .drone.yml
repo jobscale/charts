@@ -1,12 +1,93 @@
 kind: pipeline
 type: docker
-name: Helm Check
+name: Helm v2 Check
+
+workspace:
+  base: /build
 
 steps:
   - name: build
     image: alpine/helm:2.16.1
     commands:
-      - helm lint logging/ && helm template logging/
-      - helm lint monitoring/ && helm template monitoring/
+      - helm version --client
+      - |
+        mkdir -p /tmp/tools && \
+        cd /tmp/tools && \
+        wget https://github.com/instrumenta/kubeval/releases/latest/download/kubeval-linux-amd64.tar.gz && tar xf kubeval-linux-amd64.tar.gz && mv kubeval /bin/kubeval
+      - |
+        cd /build
+        for d in stable/*/; do
+           echo "Validating chart $d"
+           helm lint $d
+           helm template $d | kubeval --strict --ignore-missing-schemas
+         done
 
 ---
+kind: pipeline
+type: docker
+name: Helm v3 Check
+
+workspace:
+  base: /build
+
+steps:
+  - name: build
+    image: alpine/helm:3.0.0
+    commands:
+      - helm version --client
+      - |
+        mkdir -p /tmp/tools && \
+        cd /tmp/tools && \
+        wget https://github.com/instrumenta/kubeval/releases/latest/download/kubeval-linux-amd64.tar.gz && tar xf kubeval-linux-amd64.tar.gz && mv kubeval /bin/kubeval
+      - |
+        cd /build
+        for d in stable/*/; do
+           echo "Validating chart $d"
+           helm lint $d
+           helm template $d | kubeval --strict --ignore-missing-schemas
+         done
+
+---
+kind: pipeline
+type: docker
+name: Publish Charts
+
+steps:
+  - name: build
+    image: alpine/helm:3.0.0
+    environment:
+      GITHUB_TOKEN:
+        from_secret: GITHUB_TOKEN
+    commands:
+      - helm version --client
+      - apk add --no-cache git
+      - export REPOSITORY="https://hybrid-dev-qubole:$GITHUB_TOKEN@github.com/qubole/charts.git"
+      - git config user.email hybrid-dev@qubole.com
+      - git config user.name "CI Bot"
+      - git remote set-url origin $REPOSITORY
+      - git fetch --all
+      - mkdir -p /tmp/helm
+      - helm package stable/logging/ --destination /tmp/helm
+      - helm package stable/monitoring/ --destination /tmp/helm
+      - mkdir -p /tmp/charts/docs/ && cp -a docs/. /tmp/charts/docs/ && cp README.md /tmp/
+      - git checkout gh-pages
+      - rm -rf docs/ && rm -rf README.md
+      - mkdir docs
+      - cp -a /tmp/charts/docs/. docs/ && cp /tmp/README.md .
+      - mv -f /tmp/helm/*.tgz .
+      - helm repo index . --url https://qubole.github.io/charts
+      - git add -A
+      - git commit -m "Publish stable charts ${DRONE_COMMIT_BRANCH}"
+      - git push origin gh-pages
+      - echo "Published charts"
+
+
+trigger:
+  branch:
+    - master
+  event:
+    - push
+
+depends_on:
+  - Helm v2 Check
+  - Helm v3 Check

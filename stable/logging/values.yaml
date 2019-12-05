@@ -157,11 +157,11 @@ fluentd:
     pv: false
 
   persistence:
-    enabled: true
+    enabled: false
     size: 20Gi
 
   autoscaling:
-    enabled: true
+    enabled: false
 
 
   secrets:
