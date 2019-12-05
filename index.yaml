@@ -3,7 +3,7 @@ entries:
   logging:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-12-05T11:52:44.964479335Z"
+    created: "2019-12-05T13:59:08.183347194Z"
     dependencies:
     - condition: kibana.enabled
       name: kibana
@@ -22,7 +22,7 @@ entries:
       repository: https://kubernetes-charts.storage.googleapis.com/
       version: 1.1.1
     description: A helm chart of setup logging infra using EFK on Kubernetes
-    digest: 41a542e046c6e2d97f7e5727b6ad45a9e9f642f71fb35b6266fd5423ceb26e92
+    digest: 2c4b22d181f669b5c9ef44a3dddcfb4bd457131ae0583ff3dad640e04b6b5e13
     name: logging
     urls:
     - https://qubole.github.io/charts/logging-0.1.0.tgz
@@ -30,7 +30,7 @@ entries:
   monitoring:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-12-05T11:52:44.973755502Z"
+    created: "2019-12-05T13:59:08.192863535Z"
     dependencies:
     - condition: prometheus.enabled
       name: prometheus
@@ -47,4 +47,4 @@ entries:
     urls:
     - https://qubole.github.io/charts/monitoring-0.1.0.tgz
     version: 0.1.0
-generated: "2019-12-05T11:52:44.954770868Z"
+generated: "2019-12-05T13:59:08.173596582Z"
