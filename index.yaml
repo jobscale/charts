@@ -3,7 +3,7 @@ entries:
   logging:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-12-05T11:47:49.734371713Z"
+    created: "2019-12-05T11:52:44.964479335Z"
     dependencies:
     - condition: kibana.enabled
       name: kibana
@@ -30,7 +30,7 @@ entries:
   monitoring:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-12-05T11:47:49.744422513Z"
+    created: "2019-12-05T11:52:44.973755502Z"
     dependencies:
     - condition: prometheus.enabled
       name: prometheus
@@ -47,4 +47,4 @@ entries:
     urls:
     - https://qubole.github.io/charts/monitoring-0.1.0.tgz
     version: 0.1.0
-generated: "2019-12-05T11:47:49.725473443Z"
+generated: "2019-12-05T11:52:44.954770868Z"
