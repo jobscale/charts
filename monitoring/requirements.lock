@@ -1,0 +1,9 @@
+dependencies:
+- name: prometheus
+  repository: https://kubernetes-charts.storage.googleapis.com/
+  version: 9.3.1
+- name: prometheus-adapter
+  repository: https://kubernetes-charts.storage.googleapis.com/
+  version: 1.4.0
+digest: sha256:2488087c81002d43b5d3bea80c453472b8869a1d1332bfb61cdc672a7cb883bb
+generated: 2019-11-22T15:37:50.622976+05:30

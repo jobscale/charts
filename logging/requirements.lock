@@ -1,0 +1,15 @@
+dependencies:
+- name: kibana
+  repository: https://helm.elastic.co
+  version: 7.4.1
+- name: elasticsearch
+  repository: https://helm.elastic.co
+  version: 7.4.1
+- name: fluentd
+  repository: https://kubernetes-charts.storage.googleapis.com/
+  version: 2.3.1
+- name: hadoop
+  repository: https://kubernetes-charts.storage.googleapis.com/
+  version: 1.1.1
+digest: sha256:db9c8205bf54f8bfc04aa229a4043fad2a28c23849b6c834915928e764ee00db
+generated: "2019-12-04T16:52:26.283662+05:30"

@@ -1,0 +1,12 @@
+kind: pipeline
+type: docker
+name: Helm Check
+
+steps:
+  - name: build
+    image: alpine/helm:2.16.1
+    commands:
+      - helm lint logging/ && helm template logging/
+      - helm lint monitoring/ && helm template monitoring/
+
+---

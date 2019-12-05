@@ -1,0 +1,80 @@
+fluentd:
+  sinks:
+    s3: true
+
+  secrets:
+    s3:
+      access_key_id: &access_key_id
+      secret_access_key: &secret_access_key
+      bucket: &bucket
+      region: &region
+      path: &s3_path hybrid
+
+  configMaps:
+    output.conf: |
+      # Store Data in Elasticsearch and S3
+
+      <match **>
+        @type copy
+        <store>
+          @id elasticsearch
+          @type elasticsearch
+          @log_level info
+          include_tag_key true
+          # Replace with the host/port to your Elasticsearch cluster.
+          host "#{ENV['OUTPUT_HOST']}"
+          port "#{ENV['OUTPUT_PORT']}"
+          scheme "#{ENV['OUTPUT_SCHEME']}"
+          ssl_version "#{ENV['OUTPUT_SSL_VERSION']}"
+          logstash_format true
+          <buffer time,tag>
+            @type file
+            timekey 300
+            path /var/log/fluentd-buffers/kubernetes.elastic.buffer
+            flush_mode interval
+            retry_type exponential_backoff
+            flush_thread_count 2
+            flush_interval 5s
+            retry_forever
+            retry_max_interval 30
+            chunk_limit_size "#{ENV['OUTPUT_BUFFER_CHUNK_LIMIT']}"
+            queue_limit_length "#{ENV['OUTPUT_BUFFER_QUEUE_LIMIT']}"
+            overflow_action block
+          </buffer>
+        </store>
+        <store>
+          @type s3
+          @id s3
+
+          aws_key_id "#{ENV['AWS_ACCESS_KEY_ID']}"
+          aws_sec_key "#{ENV['AWS_SECRET_ACCESS_KEY']}"
+          s3_bucket "#{ENV['BUCKET']}"
+          s3_region "#{ENV['REGION']}"
+
+          path "#{ENV['S3_PATH']}/logs/${tag}/%Y-%m-%d"
+          s3_object_key_format %{path}/log-%{index}.%{file_extension}
+
+          <buffer time,tag>
+            @type file
+            path /var/log/fluentd-buffers/kubernetes.s3.buffer
+            timekey 3600
+            timekey_wait 10m
+            timekey_use_utc true
+          </buffer>
+          <format>
+            @type json
+          </format>
+        </store>
+      </match>
+
+  extraEnvVars:
+    - name: AWS_ACCESS_KEY_ID
+      value: *access_key_id
+    - name: AWS_SECRET_ACCESS_KEY
+      value: *secret_access_key
+    - name: BUCKET
+      value: *bucket
+    - name: REGION
+      value: *region
+    - name: S3_PATH
+      value: *s3_path
