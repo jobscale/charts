@@ -2,22 +2,28 @@
 
 [![Build Status](https://cloud.drone.io/api/badges/qubole/charts/status.svg)](https://cloud.drone.io/qubole/charts)
 
+### Install Helm V2
+```bash
+# on mac
+brew install helm@2
+```
+
+### Known RBAC Issues in Helm
+```bash
+kubectl create serviceaccount --namespace kube-system tiller
+kubectl create clusterrolebinding tiller-cluster-rule --clusterrole=cluster-admin --serviceaccount=kube-system:tiller
+kubectl edit deploy --namespace kube-system tiller-deploy #and add the line serviceAccount: tiller to spec/template/spec
+```
+source - [Github Issues](https://github.com/helm/helm/issues/2224)
+
 ### Add Qubole's Helm Repo
----
 ```bash
 helm repo add qubole https://qubole.github.io/charts/
 helm repo update
 ```
 
 ### Install Components
----
 
-#### EFK logging (Backed by S3/HDFS/PV)
-```bash
-helm --namespace kube-logging --name efk install qubole/logging
-```
-
-#### Prometheus Metrics Setup
-```bash
-helm --namespace kube-monitoring --name metrics install qubole/monitoring
-```
+* [Logging](docs/logging.md)
+* [Monitoring](docs/monitoring.md)
+* [Spark Operator](docs/sparkoperator.md)
