@@ -17,6 +17,21 @@ helm --namespace kube-monitoring --name metrics install qubole/monitoring
 
 ## Configuration Options
 
+#### Monitoring
+
+| Parameter                       | Description                              | Default            |
+| ------------------------------- | -----------------------------------------| -------------------|
+| `nameOverride`                  | Name override for chart                  |    `-`             |
+| `fullnameOverride`              | Full Name override for chart             |    `-`             |
+| `resources`                     | Resources for pods                       | `-`                |
+| `nodeSelector`                  | NodeSelector label                       | `-`                |
+| `tolerations`                   | Pod Tolerations                          | `{}`               |
+| `affinity`                      | Pod Affinity                             | `{}`               |
+| `rbac.create`                   | Weather to create RBAC policies or not   | `true`             |
+| `prometheus.enabled`            | Weather or not to enable Prometheus Chart| `true`             |
+| `prometheus-adapter.enabled`    | Enable Prometheus Adapter                | `true`             |
+
+
 #### Prometheus
 
 Parameter | Description | Default
@@ -288,20 +303,6 @@ Parameter | Description | Default
 | `prometheus-adapter.extraVolumes`                  | Any extra volumes                                                               | `[]`                                        |
 | `prometheus-adapter.tolerations`                   | List of node taints to tolerate                                                 | `[]`                                        |
 
-
-#### Monitoring
-
-| Parameter                       | Description                              | Default            |
-| ------------------------------- | -----------------------------------------| -------------------|
-| `nameOverride`                  | Name override for chart                  |    `-`             |
-| `fullnameOverride`              | Full Name override for chart             |    `-`             |
-| `resources`                     | Resources for pods                       | `-`                |
-| `nodeSelector`                  | NodeSelector label                       | `-`                |
-| `tolerations`                   | Pod Tolerations                          | `{}`               |
-| `affinity`                      | Pod Affinity                             | `{}`               |
-| `rbac.create`                   | Weather to create RBAC policies or not   | `true`             |
-| `prometheus.enabled`            | Weather or not to enable Prometheus Chart| `true`             |
-| `prometheus-adapter.enabled`    | Enable Prometheus Adapter                | `true`             |
 
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
