@@ -32,7 +32,7 @@ helm --namespace kube-monitoring --name metrics install qubole/monitoring
 | `prometheus-adapter.enabled`    | Enable Prometheus Adapter                | `true`             |
 
 
-#### Prometheus
+#### [Prometheus](https://github.com/helm/charts/tree/master/stable/prometheus)
 
 Parameter | Description | Default
 --------- | ----------- | -------
@@ -267,10 +267,10 @@ Parameter | Description | Default
 `prometheus.networkPolicy.enabled` | Enable NetworkPolicy | `false` |
 
 
-#### Prometheus Adapter
+#### [Prometheus Adapter](https://github.com/helm/charts/tree/master/stable/prometheus-adapter)
 
-| Parameter                       | Description                                                                     | Default                                     |
-| ------------------------------- | ------------------------------------------------------------------------------- | --------------------------------------------|
+| Parameter          | Description            | Default                                     |
+| ------------------ | ----------------------------------- | --------------------------------------------|
 | `prometheus-adapter.affinity`                      | Node affinity                                                                   | `{}`                                        |
 | `prometheus-adapter.image.repository`              | Image repository                                                                | `directxman12/k8s-prometheus-adapter-amd64` |
 | `prometheus-adapter.image.tag`                     | Image tag                                                                       | `v0.5.0`                                    |
@@ -281,12 +281,12 @@ Parameter | Description | Default
 | `prometheus-adapter.nodeSelector`                  | Node labels for pod assignment                                                  | `{}`                                        |
 | `prometheus-adapter.podAnnotations`                | Annotations to add to the pod                                                   | `{}`                                        |
 | `prometheus-adapter.priorityClassName`             | Pod priority                                                                    | ``                                          |
-| `prometheus-adapter.prometheus.url`                | Url of where we can find the Prometheus service                                 | `http://prometheus.default.svc`             |
-| `prometheus-adapter.prometheus.port`               | Port of where we can find the Prometheus service, zero to omit this option      | `9090`                                      |
+| `prometheus-adapter.prometheus.url`                | Url of where we can find the Prometheus service                                 | `http://metrics-prometheus-server.kube-monitoring.svc`|
+| `prometheus-adapter.prometheus.port`               | Port of where we can find the Prometheus service, zero to omit this option      | `80`                                        |
 | `prometheus-adapter.rbac.create`                   | If true, create & use RBAC resources                                            | `true`                                      |
 | `prometheus-adapter.resources`                     | CPU/Memory resource requests/limits                                             | `{}`                                        |
 | `prometheus-adapter.rules.default`                 | If `true`, enable a set of default rules in the configmap                       | `true`                                      |
-| `prometheus-adapter.rules.custom`                  | A list of custom configmap rules                                                | `[]`                                        |
+| `prometheus-adapter.rules.custom`                  | A list of custom configmap rules                                                | example configuration                       |
 | `prometheus-adapter.rules.existing`                | The name of an existing configMap with rules. Overrides default, custom and external. | ``                                    |
 | `prometheus-adapter.rules.external`                | A list of custom rules for external metrics API                                 | `[]`                                        |
 | `prometheus-adapter.rules.resource`                | `resourceRules` to set in configmap rules                                       | `{}`                                        |
