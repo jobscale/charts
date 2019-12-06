@@ -3,6 +3,7 @@
 Source: [Github](https://github.com/GoogleCloudPlatform/spark-on-k8s-operator)
 
 * Add Repo for SparkOperator
+
 ```bash
 helm repo add incubator http://storage.googleapis.com/kubernetes-charts-incubator
 ```
@@ -24,12 +25,14 @@ kubectl create -f spark-namespace.yaml
 ```
 
 * Install SparkOperator
+
 ```bash
 helm install incubator/sparkoperator --namespace spark-operator --name spark --set sparkJobNamespace=spark-jobs --set serviceAccounts.spark.name=spark
 ```
 
 
 * Submit a Sample Spark Command
+
 ```bash
 # for examples clone this repo
 git clone https://github.com/GoogleCloudPlatform/spark-on-k8s-operator
