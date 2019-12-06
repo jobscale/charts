@@ -1,0 +1,11 @@
+{{- if .Values.fluentdForwarder.serviceAccount.create -}}
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+    name: {{ template "logging.fullname" .}}-forwarder
+    labels:
+        app: {{ template "fluentd.name" . }}
+        chart: {{ template "fluentd.chart" . }}
+        release: {{ .Release.Name }}
+        heritage: {{ .Release.Service }}
+{{- end -}}

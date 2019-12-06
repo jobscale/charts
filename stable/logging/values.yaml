@@ -1,0 +1,240 @@
+# default values for all charts
+nameOverride: &nameOverride ""
+fullnameOverride: &fullnameOverride ""
+
+resources: &resources {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #  cpu: 100m
+  #  memory: 128Mi
+  # requests:
+  #  cpu: 100m
+#  memory: 128Mi
+
+nodeSelector: &nodeSelector {}
+
+tolerations: &tolerations []
+
+affinity: &affinity {}
+
+rbac: &RBACDefaults
+  create: true
+
+
+# config for kibana dashboard: https://github.com/elastic/helm-charts/tree/master/kibana
+kibana:
+  enabled: true
+
+  # common values
+  nameOverride: *nameOverride
+  fullnameOverride: *fullnameOverride
+  nodeSelector: *nodeSelector
+  tolerations: *tolerations
+  affinity: *affinity
+  resources: *resources
+  rbac: *RBACDefaults
+
+
+# config for elasticsearch: https://github.com/elastic/helm-charts/tree/master/kibana
+elasticsearch:
+  enabled: true
+  replicas: 2
+
+  # common values
+  nameOverride: *nameOverride
+  fullnameOverride: *fullnameOverride
+  nodeSelector: *nodeSelector
+  tolerations: *tolerations
+  affinity: *affinity
+  resources: *resources
+  rbac: *RBACDefaults
+
+# config for fluentd aggregator: https://github.com/helm/charts/tree/master/stable/fluentd
+fluentd:
+  enabled: true
+
+  # common values
+  nameOverride: *nameOverride
+  fullnameOverride: *fullnameOverride
+  nodeSelector: *nodeSelector
+  tolerations: *tolerations
+  affinity: *affinity
+  resources: *resources
+  rbac: *RBACDefaults
+
+  service:
+    annotations: {}
+    type: ClusterIP
+    ports:
+      - name: "fluent-input"
+        protocol: TCP
+        containerPort: 24224
+  configMaps:
+    general.conf: |
+      # Prevent fluentd from handling records containing its own logs. Otherwise
+      # it can lead to an infinite loop, when error in sending one message generates
+      # another message which also fails to be sent and so on.
+      <match fluentd.**>
+        @type null
+      </match>
+      # Used for health checking
+      <source>
+        @type http
+        port 9880
+        bind 0.0.0.0
+      </source>
+      # Emits internal metrics to every minute, and also exposes them on port
+      # 24220. Useful for determining if an output plugin is retryring/erroring,
+      # or determining the buffer queue length.
+      <source>
+        @type monitor_agent
+        bind 0.0.0.0
+        port 24220
+        tag fluentd.monitor.metrics
+      </source>
+
+      <match kubernetes.**>
+        @type rewrite_tag_filter
+        # for spark
+        <rule>
+          key $.kubernetes
+          pattern container_name\"=>"([^\"]*)\".*namespace_name\"=>\"([^\"]*)\".*pod_name\"=>\"([^\"]*)\".*pod_id\"=>\"([^\"]*)\".*"spark-role"=>"([^\"]*)\".*"sparkoperator_k8s_io\/app-name"=>"([^\"]*)\".*"sparkoperator_k8s_io\/submission-id"=>"([^\"]*)\"
+          tag $2/$6-$7/$5
+        </rule>
+        # for other apps
+        <rule>
+          key $.kubernetes
+          pattern container_name\"=>"([^\"]*)\".*namespace_name\"=>\"([^\"]*)\".*pod_name\"=>\"([^\"]*)\".*pod_id\"=>\"([^\"]*)\"
+          tag $2/$3/$1-$4
+        </rule>
+      </match>
+    system.conf: |-
+      <system>
+        root_dir /tmp/fluentd-buffers/
+      </system>
+    output.conf: |
+      # Store Data in Elasticsearch and S3
+
+      <match kubernetes.**>
+        @type rewrite_tag_filter
+        <rule>
+          key $.kubernetes
+          pattern container_name\"=>"([^\"]*)\".*namespace_name\"=>\"([^\"]*)\".*pod_name\"=>\"([^\"]*)\".*pod_id\"=>\"([^\"]*)\"
+          tag $2/$3/$1-$4
+        </rule>
+      </match>
+
+      <match **>
+        @type copy
+        deep_copy true
+        <store>
+          @id elasticsearch
+          @type elasticsearch
+          @log_level info
+          include_tag_key true
+          # Replace with the host/port to your Elasticsearch cluster.
+          host "#{ENV['OUTPUT_HOST']}"
+          port "#{ENV['OUTPUT_PORT']}"
+          scheme "#{ENV['OUTPUT_SCHEME']}"
+          ssl_version "#{ENV['OUTPUT_SSL_VERSION']}"
+          logstash_format true
+          <buffer time,tag>
+            @type file
+            timekey 300
+            path /var/log/fluentd-buffers/kubernetes.elastic.buffer
+            flush_mode interval
+            retry_type exponential_backoff
+            flush_thread_count 2
+            flush_interval 5s
+            retry_forever
+            retry_max_interval 30
+            chunk_limit_size "#{ENV['OUTPUT_BUFFER_CHUNK_LIMIT']}"
+            queue_limit_length "#{ENV['OUTPUT_BUFFER_QUEUE_LIMIT']}"
+            overflow_action block
+          </buffer>
+        </store>
+      </match>
+
+  sinks:
+    s3: false
+    hdfs: false
+    pv: false
+
+  persistence:
+    enabled: true
+    size: 20Gi
+
+  autoscaling:
+    enabled: false
+
+
+  secrets:
+    s3:
+      access_key_id:
+      secret_access_key:
+      bucket:
+      region:
+
+  plugins:
+    enabled: true
+    pluginsList:
+      - "fluent-plugin-s3"
+      - "fluent-plugin-forest"
+      - "fluent-plugin-rewrite-tag-filter"
+      - "fluent-plugin-webhdfs"
+
+#  extraEnvVars:
+#    - name: S3_KEY_ID
+#      value: <aws s3 secret key id>
+#    - name: S3_SECRET_KEY
+#      value: <aws s3 secret key>
+#    - name: S3_BUCKET
+#      value: <bucket name>
+#    - name: S3_REGION
+#      value: <bucket region>
+
+  output:
+    host: elasticsearch-master
+
+# config for fluentd-forwarder daemon-set
+fluentdForwarder:
+  enabled: true
+
+  # common values
+  nameOverride: *nameOverride
+  fullnameOverride: *fullnameOverride
+  nodeSelector: *nodeSelector
+  affinity: *affinity
+  rbac: *RBACDefaults
+
+  resources:
+    limits:
+      memory: 512Mi
+    requests:
+      cpu: 100m
+      memory: 200Mi
+
+  containerName: fluentd-forwarder
+  image:
+    name: fluent/fluentd-kubernetes-daemonset
+    tag: v1.3.3-debian-forward-1.3
+    pullPolicy: "IfNotPresent"
+
+  tolerations:
+    - key: node-role.kubernetes.io/master
+      effect: NoSchedule
+
+  forward:
+    host: efk-fluentd.kube-logging.svc.cluster.local
+    port : 24224
+
+  extraEnvVars:
+
+  serviceAccount:
+    create: true
+
+hadoop:
+  enabled: false

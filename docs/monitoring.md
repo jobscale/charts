@@ -27,8 +27,8 @@ helm --namespace kube-monitoring --name metrics install qubole/monitoring
 | `nodeSelector`                  | NodeSelector label                       | `-`                |
 | `tolerations`                   | Pod Tolerations                          | `{}`               |
 | `affinity`                      | Pod Affinity                             | `{}`               |
-| `rbac.create`                   | Weather to create RBAC policies or not   | `true`             |
-| `prometheus.enabled`            | Weather or not to enable Prometheus Chart| `true`             |
+| `rbac.create`                   | To create RBAC policies or not           | `true`             |
+| `prometheus.enabled`            | To enable Prometheus Chart               | `true`             |
 | `prometheus-adapter.enabled`    | Enable Prometheus Adapter                | `true`             |
 
 
