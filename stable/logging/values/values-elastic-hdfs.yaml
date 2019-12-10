@@ -44,7 +44,7 @@ fluentd:
           @type webhdfs
           host efk-hadoop-hdfs-nn
           port 50070
-          path /path/on/hdfs/${tag}/access.log.%Y%m%d_%H.log
+          path /logs/${tag}/access.log.%Y%m%d_%H.log
           <buffer time,tag>
             @type   file
             path    /var/log/fluentd/buffer

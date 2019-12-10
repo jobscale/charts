@@ -69,11 +69,11 @@ steps:
       - mkdir -p /tmp/helm
       - helm package stable/logging/ --destination /tmp/helm
       - helm package stable/monitoring/ --destination /tmp/helm
-      - mkdir -p /tmp/charts/docs/ && cp -a docs/. /tmp/charts/docs/ && cp README.md /tmp/
+      - mkdir -p /tmp/charts/docs/ && mkdir -p /tmp/charts/stable/ && cp -a docs/. /tmp/charts/docs/ && cp README.md /tmp/ && cp -a stable/. /tmp/charts/stable/
       - git checkout gh-pages
-      - rm -rf docs/ && rm -rf README.md
-      - mkdir docs
-      - cp -a /tmp/charts/docs/. docs/ && cp /tmp/README.md .
+      - rm -rf docs/ && rm -rf README.md && rm -rf stable
+      - mkdir docs && mkdir stable
+      - cp -a /tmp/charts/docs/. docs/ && cp /tmp/README.md . && cp -a /tmp/charts/stable/. stable/.
       - mv -f /tmp/helm/*.tgz .
       - helm repo index . --url https://qubole.github.io/charts
       - git add -A

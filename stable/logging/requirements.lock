@@ -7,9 +7,9 @@ dependencies:
   version: 7.4.1
 - name: fluentd
   repository: https://kubernetes-charts.storage.googleapis.com/
-  version: 2.3.1
+  version: 2.3.2
 - name: hadoop
   repository: https://kubernetes-charts.storage.googleapis.com/
   version: 1.1.1
-digest: sha256:db9c8205bf54f8bfc04aa229a4043fad2a28c23849b6c834915928e764ee00db
-generated: "2019-12-04T16:52:26.283662+05:30"
+digest: sha256:0dfbabc27313bd0058da8e7ad30ee376b08a352fcf6995c0e23eb2d44992bf1b
+generated: "2019-12-06T17:17:04.859246+05:30"

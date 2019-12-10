@@ -95,19 +95,26 @@ fluentd:
         port 24220
         tag fluentd.monitor.metrics
       </source>
-    system.conf: |-
-      <system>
-        root_dir /tmp/fluentd-buffers/
-      </system>
-    rewrite.conf: |
+
       <match kubernetes.**>
         @type rewrite_tag_filter
+        # for spark
+        <rule>
+          key $.kubernetes
+          pattern container_name\"=>"([^\"]*)\".*namespace_name\"=>\"([^\"]*)\".*pod_name\"=>\"([^\"]*)\".*pod_id\"=>\"([^\"]*)\".*"spark-role"=>"([^\"]*)\".*"sparkoperator_k8s_io\/app-name"=>"([^\"]*)\".*"sparkoperator_k8s_io\/submission-id"=>"([^\"]*)\"
+          tag $2/$6-$7/$5
+        </rule>
+        # for other apps
         <rule>
           key $.kubernetes
           pattern container_name\"=>"([^\"]*)\".*namespace_name\"=>\"([^\"]*)\".*pod_name\"=>\"([^\"]*)\".*pod_id\"=>\"([^\"]*)\"
           tag $2/$3/$1-$4
         </rule>
       </match>
+    system.conf: |-
+      <system>
+        root_dir /tmp/fluentd-buffers/
+      </system>
     output.conf: |
       # Store Data in Elasticsearch and S3
 
@@ -157,7 +164,7 @@ fluentd:
     pv: false
 
   persistence:
-    enabled: false
+    enabled: true
     size: 20Gi
 
   autoscaling:
