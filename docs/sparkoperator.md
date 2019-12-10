@@ -39,9 +39,9 @@ git clone https://github.com/GoogleCloudPlatform/spark-on-k8s-operator
 cd spark-on-k8s-operator/examples
 
 # you will find a list of examples here
-# since we have deployed on spark jobs namespace, edit the example files to remove `namespace: default` wherever they exist
-# create and view a sparkapplication
-kubectl apply -f spark-pi-prometheus.yaml
+# NOTE: since we have deployed on spark jobs namespace, edit the example files to remove `namespace: default` wherever they exist
+# steps to create and view a sparkapplication
+kubectl -n spark-jobs apply -f spark-pi-prometheus.yaml
 kubectl -n spark-jobs get sparkapplication
 kubectl -n spark-jobs describe sparkapplication spark-pi
 

@@ -9,9 +9,9 @@ helm repo update
 ```
 
 
-#### **tldr;**
+#### **tl;dr;**
 ```bash
-helm --namespace kube-monitoring --name metrics install qubole/logging
+helm --namespace kube-monitoring --name efk install qubole/logging
 ```
 
 ## Persistence Options
@@ -21,7 +21,7 @@ helm --namespace kube-monitoring --name metrics install qubole/logging
   * Edit the file to add S3 credentials where written as `<s3 credentials here>`
   * Then, run command:
     ```bash
-    helm --namespace kube-monitoring --name metrics install qubole/logging -f ./values-elastic-s3.yaml
+    helm --namespace kube-monitoring --name efk install qubole/logging -f ./values-elastic-s3.yaml
     ```
   
 
@@ -33,7 +33,7 @@ helm --namespace kube-monitoring --name metrics install qubole/logging
   * If you don't have your own HDFS, an internal Hadoop Setup will be created automatically.
   * Then, run command:
     ```bash
-    helm --namespace kube-monitoring --name metrics install qubole/logging -f ./values-elastic-hdfs.yaml
+    helm --namespace kube-monitoring --name efk install qubole/logging -f ./values-elastic-hdfs.yaml
     ```
   
   
@@ -43,7 +43,7 @@ helm --namespace kube-monitoring --name metrics install qubole/logging
   * Under `extraVolumes` in the Yaml file add details to your PVC
   * Then, run command:
     ```bash
-    helm --namespace kube-monitoring --name metrics install qubole/logging -f ./values-elastic-pv.yaml
+    helm --namespace kube-monitoring --name efk install qubole/logging -f ./values-elastic-pv.yaml
     ```
   
   
@@ -54,8 +54,8 @@ helm --namespace kube-monitoring --name metrics install qubole/logging
 
 | Parameter                       | Description                              | Default            |
 | ------------------------------- | -----------------------------------------| -------------------|
-| `nameOverride`                  | Name override for chart                  |    `-`             |
-| `fullnameOverride`              | Full Name override for chart             |    `-`             |
+| `nameOverride`                  | Name override for chart                  | `-`                |
+| `fullnameOverride`              | Full Name override for chart             | `-`                |
 | `resources`                     | Resources for pods                       | `-`                |
 | `nodeSelector`                  | NodeSelector label                       | `-`                |
 | `tolerations`                   | Pod Tolerations                          | `{}`               |
@@ -250,5 +250,5 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 
 ```console
 $ helm install qubole/logging --name efk \
-    --set prometheus.server.terminationGracePeriodSeconds=360
+    --set kibana.httpPorts=8080
 ```

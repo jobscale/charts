@@ -9,7 +9,7 @@ helm repo update
 ```
 
 
-#### **tldr;**
+#### **tl;dr;**
 
 ```bash
 helm --namespace kube-monitoring --name metrics install qubole/monitoring
