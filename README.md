@@ -15,6 +15,9 @@ helm init
 kubectl create serviceaccount --namespace kube-system tiller
 kubectl create clusterrolebinding tiller-cluster-rule --clusterrole=cluster-admin --serviceaccount=kube-system:tiller
 kubectl edit deploy --namespace kube-system tiller-deploy # and add the line serviceAccount: tiller to spec/template/spec
+
+# RBAC Issue only on GKE
+kubectl create clusterrolebinding <user_name>-cluster-admin-binding --clusterrole=cluster-admin --user=<user_email>
 ```
 source - [Github Issues](https://github.com/helm/helm/issues/2224)
 

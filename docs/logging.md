@@ -11,7 +11,7 @@ helm repo update
 
 #### **tl;dr;**
 ```bash
-helm --namespace kube-monitoring --name efk install qubole/logging
+helm --namespace kube-logging --name efk install qubole/logging
 ```
 
 ## Persistence Options
@@ -251,4 +251,10 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 ```console
 $ helm install qubole/logging --name efk \
     --set kibana.httpPorts=8080
+```
+
+## Accessing Kibana UI
+
+```console
+kubectl -n kube-logging port-forward $(kubectl -n kube-logging get pods | grep kibana | awk '{print $1}') 5601:5601
 ```
