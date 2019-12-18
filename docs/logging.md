@@ -11,7 +11,7 @@ helm repo update
 
 #### **tl;dr;**
 ```bash
-helm --namespace kube-monitoring --name efk install qubole/logging
+helm --namespace kube-logging --name efk install qubole/logging
 ```
 
 ## Persistence Options
