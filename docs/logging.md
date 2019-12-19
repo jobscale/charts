@@ -28,9 +28,9 @@ helm --namespace kube-logging --name efk install qubole/logging
 * Web HDFS
   * Download this [HDFS Config File](../stable/logging/values/values-elastic-hdfs.yaml) and save it as `values-elastic-hdfs.yaml`
   * If you have your own HDFS Setup:
-    * Replace the configs `host efk-hadoop-hdfs-nn` and `port 50070` in the file with your web hdfs url and port
-    * Set `hadoop.enabled` to `false` in the yaml file
-  * If you don't have your own HDFS, an internal Hadoop Setup will be created automatically.
+    * Replace the configs `host efk-hadoop-hdfs-nn` and `port 50070` in the file above with your web hdfs url and port
+  * If you don't have your own HDFS:
+    * Install Hadoop Chart from https://github.com/helm/charts/tree/master/stable/hadoop `helm install --name hadoop stable/hadoop --namespace kube-logging`
   * Then, run command:
     ```bash
     helm --namespace kube-monitoring --name efk install qubole/logging -f ./values-elastic-hdfs.yaml
