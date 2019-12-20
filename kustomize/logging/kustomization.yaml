@@ -1,0 +1,48 @@
+# Each entry in this list results in the creation of
+# one ConfigMap resource (it's a generator of n maps).
+configMapGenerator:
+- files:
+  - monitoring-fluentd-forward-input.conf
+  - monitoring-fluentd-general.conf
+  - monitoring-fluentd-install-plugins.sh
+  - monitoring-fluentd-output.conf
+  - monitoring-fluentd-system.conf
+  name: monitoring-fluentd
+
+# Images modify the tags for images without
+# creating patches.
+images:
+- name: docker.elastic.co/elasticsearch/elasticsearch
+  newTag: 7.4.1
+- name: docker.elastic.co/kibana/kibana
+  newTag: 7.4.1
+- name: fluent/fluentd-kubernetes-daemonset
+  newTag: v1.3.3-debian-forward-1.3
+- name: gcr.io/google-containers/fluentd-elasticsearch
+  newTag: v2.4.0
+
+# List of resource files that kustomize reads, modifies
+# and emits as a YAML string
+resources:
+- elasticsearch-master-headless-svc.yaml
+- elasticsearch-master-pdb-pdb.yaml
+- elasticsearch-master-rb.yaml
+- elasticsearch-master-role.yaml
+- elasticsearch-master-sa.yaml
+- elasticsearch-master-statefulset.yaml
+- elasticsearch-master-svc.yaml
+- monitoring-dslzs-test-pod.yaml
+- monitoring-fluentd-clusterrole.yaml
+- monitoring-fluentd-crb.yaml
+- monitoring-fluentd-deploy.yaml
+- monitoring-fluentd-forwarder-ds.yaml
+- monitoring-fluentd-pvc.yaml
+- monitoring-fluentd-rb.yaml
+- monitoring-fluentd-role.yaml
+- monitoring-fluentd-sa.yaml
+- monitoring-fluentd-svc.yaml
+- monitoring-kibana-deploy.yaml
+- monitoring-kibana-svc.yaml
+- monitoring-logging-forwarder-clusterrole.yaml
+- monitoring-logging-forwarder-crb.yaml
+- monitoring-logging-forwarder-sa.yaml

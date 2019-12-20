@@ -1,0 +1,15 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  labels:
+    app: elasticsearch-master
+  name: elasticsearch-master
+rules:
+- apiGroups:
+  - extensions
+  resourceNames:
+  - elasticsearch-master
+  resources:
+  - podsecuritypolicies
+  verbs:
+  - use

@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: prometheus-adapter
+  name: monitoring-prometheus-adapter
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: prometheus-adapter
+  template:
+    metadata:
+      annotations:
+        checksum/config: 9caedd6152db5ff9c9c74dfc9190ef5b58b2c06d2682e1117340c9a179b7784f
+      labels:
+        app: prometheus-adapter
+      name: prometheus-adapter
+    spec:
+      containers:
+      - args:
+        - /adapter
+        - --secure-port=6443
+        - --cert-dir=/tmp/cert
+        - --logtostderr=true
+        - --prometheus-url=http://metrics-prometheus-server.kube-monitoring.svc:80
+        - --metrics-relist-interval=1m
+        - --v=4
+        - --config=/etc/adapter/config.yaml
+        image: directxman12/k8s-prometheus-adapter-amd64:v0.5.0
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: https
+            scheme: HTTPS
+          initialDelaySeconds: 30
+        name: prometheus-adapter
+        ports:
+        - containerPort: 6443
+          name: https
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: https
+            scheme: HTTPS
+          initialDelaySeconds: 30
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - all
+          readOnlyRootFilesystem: true
+          runAsNonRoot: true
+          runAsUser: 10001
+        volumeMounts:
+        - mountPath: /etc/adapter/
+          name: config
+          readOnly: true
+        - mountPath: /tmp
+          name: tmp
+      serviceAccountName: monitoring-prometheus-adapter
+      tolerations: []
+      volumes:
+      - configMap:
+          name: monitoring-prometheus-adapter
+        name: config
+      - name: tmp

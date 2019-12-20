@@ -1,0 +1,69 @@
+# Each entry in this list results in the creation of
+# one ConfigMap resource (it's a generator of n maps).
+configMapGenerator:
+- files:
+  - monitoring-prometheus-alertmanager-alertmanager.yml
+  name: monitoring-prometheus-alertmanager
+- files:
+  - monitoring-prometheus-server-prometheus.yml
+  name: monitoring-prometheus-server
+- files:
+  - monitoring-prometheus-adapter-config.yaml
+  name: monitoring-prometheus-adapter
+
+# Images modify the tags for images without
+# creating patches.
+images:
+- name: directxman12/k8s-prometheus-adapter-amd64
+  newTag: v0.5.0
+- name: jimmidyson/configmap-reload
+  newTag: v0.2.2
+- name: prom/alertmanager
+  newTag: v0.18.0
+- name: prom/node-exporter
+  newTag: v0.18.0
+- name: prom/prometheus
+  newTag: v2.13.1
+- name: prom/pushgateway
+  newTag: v0.8.0
+- name: quay.io/coreos/kube-state-metrics
+  newTag: v1.6.0
+
+# List of resource files that kustomize reads, modifies
+# and emits as a YAML string
+resources:
+- monitoring-prometheus-adapter-deploy.yaml
+- monitoring-prometheus-adapter-sa.yaml
+- monitoring-prometheus-adapter-svc.yaml
+- monitoring-prometheus-alertmanager-clusterrole.yaml
+- monitoring-prometheus-alertmanager-crb.yaml
+- monitoring-prometheus-alertmanager-deploy.yaml
+- monitoring-prometheus-alertmanager-pvc.yaml
+- monitoring-prometheus-alertmanager-sa.yaml
+- monitoring-prometheus-alertmanager-svc.yaml
+- monitoring-prometheus-kube-state-metrics-clusterrole.yaml
+- monitoring-prometheus-kube-state-metrics-crb.yaml
+- monitoring-prometheus-kube-state-metrics-deploy.yaml
+- monitoring-prometheus-kube-state-metrics-sa.yaml
+- monitoring-prometheus-kube-state-metrics-svc.yaml
+- monitoring-prometheus-node-exporter-ds.yaml
+- monitoring-prometheus-node-exporter-sa.yaml
+- monitoring-prometheus-node-exporter-svc.yaml
+- monitoring-prometheus-pushgateway-clusterrole.yaml
+- monitoring-prometheus-pushgateway-crb.yaml
+- monitoring-prometheus-pushgateway-deploy.yaml
+- monitoring-prometheus-pushgateway-sa.yaml
+- monitoring-prometheus-pushgateway-svc.yaml
+- monitoring-prometheus-server-clusterrole.yaml
+- monitoring-prometheus-server-crb.yaml
+- monitoring-prometheus-server-deploy.yaml
+- monitoring-prometheus-server-pvc.yaml
+- monitoring-prometheus-server-sa.yaml
+- monitoring-prometheus-server-svc.yaml
+- prometheus-adapter-auth-reader-rb.yaml
+- prometheus-adapter-hpa-controller-crb.yaml
+- prometheus-adapter-resource-reader-clusterrole.yaml
+- prometheus-adapter-resource-reader-crb.yaml
+- prometheus-adapter-server-resources-clusterrole.yaml
+- prometheus-adapter:system:auth-delegator-crb.yaml
+- v1beta1.custom.metrics.k8s.io-apiservice.yaml

@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: prometheus
+    component: alertmanager
+  name: monitoring-prometheus-alertmanager
+spec:
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 9093
+  selector:
+    app: prometheus
+    component: alertmanager
+  type: ClusterIP

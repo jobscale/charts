@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: prometheus
+    component: pushgateway
+  name: monitoring-prometheus-pushgateway
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: prometheus
+      component: pushgateway
+  template:
+    metadata:
+      labels:
+        app: prometheus
+        component: pushgateway
+    spec:
+      containers:
+      - image: prom/pushgateway:v0.8.0
+        imagePullPolicy: IfNotPresent
+        name: prometheus-pushgateway
+        ports:
+        - containerPort: 9091
+        readinessProbe:
+          httpGet:
+            path: /#/status
+            port: 9091
+          initialDelaySeconds: 10
+          timeoutSeconds: 10
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65534
+      serviceAccountName: monitoring-prometheus-pushgateway
