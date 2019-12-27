@@ -5,5 +5,8 @@ dependencies:
 - name: prometheus-adapter
   repository: https://kubernetes-charts.storage.googleapis.com/
   version: 1.4.0
-digest: sha256:2488087c81002d43b5d3bea80c453472b8869a1d1332bfb61cdc672a7cb883bb
-generated: 2019-11-22T15:37:50.622976+05:30
+- name: grafana
+  repository: https://kubernetes-charts.storage.googleapis.com/
+  version: 4.2.2
+digest: sha256:9c7d83a18103c5f75a574e98b84f7c13a04c33bcf87ced494e9596b332b25fc6
+generated: "2019-12-24T11:47:02.308285+05:30"

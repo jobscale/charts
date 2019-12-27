@@ -1,0 +1,56 @@
+apiVersion: "sparkoperator.k8s.io/v1beta2"
+kind: SparkApplication
+metadata:
+  name: spark-hive-tables
+spec:
+  type: Scala
+  mode: cluster
+  image: "gcr.io/hybrid-qubole/spark:latest"
+  imagePullPolicy: Always
+  mainClass: "generated"
+  mainApplicationFile: "s3a://{JAR_LOCATION}"
+  hadoopConf:
+    "fs.s3a.awsAccessKeyId": "{AWS_ACCESS_KEY_ID}"
+    "fs.s3a.awsSecretAccessKey": "{AWS_SECRET_ACCESS_KEY}"
+    "fs.s3.impl": "org.apache.hadoop.fs.s3a.S3AFileSystem"
+  sparkConf:
+    "spark.hadoop.hive.metastore.uris": "{HIVE_METASTORE_URI}"
+    "spark.network.timeout": "1200"
+    # S3 Specific config (remove if s3 not used)
+    "spark.hadoop.fs.s3a.connection.timeout": "1200000"
+    "spark.hadoop.fs.s3a.path.style.access": "true"
+    "spark.hadoop.fs.s3a.connection.maximum": "200"
+    "spark.hadoop.fs.s3a.fast.upload": "true"
+    # For S3 writing, we need to disable speculation to have consistent writes
+    "spark.speculation": "false"
+    "spark.hadoop.fs.s3a.committer.name": "directory"
+    "spark.hadoop.fs.s3a.committer.staging.conflict-mode": "append"
+    "spark.hadoop.mapreduce.outputcommitter.factory.scheme.s3a": "org.apache.hadoop.fs.s3a.commit.S3ACommitterFactory"
+    "spark.hadoop.mapreduce.input.fileinputformat.input.dir.recursive": "true"
+    "hive.mapred.supports.subdirectories": "true"
+    "spark.eventLog.enabled": "true"
+    "spark.eventLog.dir":  "{SPARK_HISTORY_EVENT_LOG_DIR}"
+  arguments:
+    - "100000"
+  sparkVersion: "2.4.4"
+  restartPolicy:
+    type: Never
+  driver:
+    cores: 1
+    coreLimit: "2"
+    memory: "4096m"
+    labels:
+      version: 2.4.4
+    serviceAccount: spark
+  executor:
+    cores: 2
+    instances: 40
+    memory: "8000m"
+    labels:
+      version: 2.4.4
+  monitoring:
+    exposeDriverMetrics: true
+    exposeExecutorMetrics: true
+    prometheus:
+      jmxExporterJar: "/prometheus/jmx_prometheus_javaagent-0.11.0.jar"
+      port: 8090

@@ -357,3 +357,42 @@ prometheus-adapter:
             resource: pod
       containerLabel: container_name
     window: 1m
+
+grafana:
+  enabled: true
+  persistence:
+    enabled: true
+  datasources:
+    datasources.yaml:
+      apiVersion: 1
+      datasources:
+      - name: Prometheus
+        type: prometheus
+        access: proxy
+        url: http://metrics-prometheus-server
+        version: 1
+        editable: true
+
+  dashboards:
+    default:
+      k8s-monitoring:
+        # Ref: https://grafana.com/grafana/dashboards/6417
+        gnetId: 6417
+        revision: 1
+        datasource: Prometheus
+      prometheus-stats:
+        # Ref: https://grafana.com/dashboards/2
+        gnetId: 2
+        revision: 2
+        datasource: Prometheus
+      cluster-stats:
+        # Ref: https://grafana.com/dashboards/10000
+        gnetId: 10000
+        revision: 1
+        datasource: Prometheus
+      deployment-stats:
+        # Ref: https://grafana.com/dashboards/8588
+        gnetId: 8588
+        revision: 1
+        datasource: Prometheus
+

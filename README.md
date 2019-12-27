@@ -31,4 +31,7 @@ helm repo update
 
 * [Logging](docs/logging.md)
 * [Monitoring](docs/monitoring.md)
-* [Spark Operator](docs/sparkoperator.md)
+* [Hive Metastore](docs/hive-metastore.md)
+* [Spark (Operator and History Server)](docs/sparkoperator.md)
+* [Security (Falco)](docs/security.md)
+* [Presto Operator](docs/presto-operator.md)

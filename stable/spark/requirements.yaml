@@ -1,0 +1,9 @@
+dependencies:
+  - name: sparkoperator
+    version: 0.6.1
+    repository: http://storage.googleapis.com/kubernetes-charts-incubator
+    condition: sparkoperator.enabled
+  - name: spark-history-server
+    version: 1.1.1
+    repository: https://kubernetes-charts.storage.googleapis.com/
+    condition: spark-history-server.enabled
