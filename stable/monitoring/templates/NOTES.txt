@@ -1,0 +1,16 @@
+1. Get your '{{ .Values.grafana.adminUser }}' user password by running:
+
+   kubectl get secret --namespace {{ .Release.Namespace }} {{ .Release.Name }}-grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
+
+2. Access Grafana using the following comamnd:
+
+   sudo kubectl --namespace {{ .Release.Namespace }} port-forward svc/{{ .Release.Name }}-grafana 80
+
+   access using: http://localhost
+
+
+3. Access Prometheus Server using the following comamnd:
+
+   sudo kubectl --namespace {{ .Release.Namespace }} port-forward svc/{{ .Release.Name }}-prometheus-server 80
+
+   access using: http://localhost

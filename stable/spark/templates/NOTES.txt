@@ -1,0 +1,16 @@
+1. Using Spark History Server with SparkApplication
+
+    {{- if index .Values "spark-history-server" "s3" "logDirectory" }}
+    Since you are using S3, add the following sparkconf to your SparkApplication yaml
+
+            "spark.eventLog.enabled": "true"
+            "spark.eventLog.dir": {{ index .Values "spark-history-server" "s3" "logDirectory" }}
+    {{- end }}
+
+
+2. To access Spark History Server UI, run the following command:
+
+    kubectl -n {{ .Release.Namespace }} port-forward svc/{{ .Release.Name }}-spark-history-server {{ index .Values "spark-history-server" "service" "port"}}
+
+    access using url: http://localhost:{{ index .Values "spark-history-server" "service" "port"}}
+

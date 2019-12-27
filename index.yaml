@@ -1,9 +1,24 @@
 apiVersion: v1
 entries:
+  hive-metastore:
+  - apiVersion: v1
+    appVersion: "1.0"
+    created: "2019-12-27T08:37:12.466182882Z"
+    dependencies:
+    - condition: mysql.enabled
+      name: mysql
+      repository: https://kubernetes-charts.storage.googleapis.com/
+      version: 1.6.2
+    description: A Helm chart for Hive Metastore Setup
+    digest: ddf19339351a4f8da73e86ea8f774836fd606f5f5f7180acca03edfd6a171d98
+    name: hive-metastore
+    urls:
+    - https://qubole.github.io/charts/hive-metastore-0.1.0.tgz
+    version: 0.1.0
   logging:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-12-20T18:08:03.347231172Z"
+    created: "2019-12-27T08:37:12.483375251Z"
     dependencies:
     - condition: kibana.enabled
       name: kibana
@@ -18,14 +33,14 @@ entries:
       repository: https://kubernetes-charts.storage.googleapis.com/
       version: 2.3.2
     description: A helm chart of setup logging infra using EFK on Kubernetes
-    digest: 548a3a18917c1750a02b942555a99fa6d80b73c6ce2010272cbc9371a6194793
+    digest: 3e3c25a25f440f4908333aea5850fa92ed0a4113ca50b57d1881271efb21807b
     name: logging
     urls:
     - https://qubole.github.io/charts/logging-0.1.1.tgz
     version: 0.1.1
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-12-20T18:08:03.340660192Z"
+    created: "2019-12-27T08:37:12.47473359Z"
     dependencies:
     - condition: kibana.enabled
       name: kibana
@@ -52,7 +67,7 @@ entries:
   monitoring:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-12-20T18:08:03.356459858Z"
+    created: "2019-12-27T08:37:12.49517156Z"
     dependencies:
     - condition: prometheus.enabled
       name: prometheus
@@ -62,11 +77,34 @@ entries:
       name: prometheus-adapter
       repository: https://kubernetes-charts.storage.googleapis.com/
       version: 1.4.0
+    - condition: grafana.enabled
+      name: grafana
+      repository: https://kubernetes-charts.storage.googleapis.com/
+      version: 4.2.2
     description: A Helm chart for setting up Monitoring Framework using Prometheus
       on Kubernetes
-    digest: d346febfa7b973782f3a18e8a03e4213d68a0e5fa8f1d29c89d4b468550bf8bb
+    digest: a7a582ed9a4916aac03e8ebe41c1adfbdb803bdc7faa3588ebb3ecdead9317c2
     name: monitoring
     urls:
     - https://qubole.github.io/charts/monitoring-0.1.0.tgz
     version: 0.1.0
-generated: "2019-12-20T18:08:03.331154808Z"
+  spark:
+  - apiVersion: v1
+    appVersion: "1.0"
+    created: "2019-12-27T08:37:12.504257455Z"
+    dependencies:
+    - condition: sparkoperator.enabled
+      name: sparkoperator
+      repository: http://storage.googleapis.com/kubernetes-charts-incubator
+      version: 0.6.1
+    - condition: spark-history-server.enabled
+      name: spark-history-server
+      repository: https://kubernetes-charts.storage.googleapis.com/
+      version: 1.1.1
+    description: A Helm chart for Kubernetes
+    digest: 1a4a4268615d025de8b3d7f83d40138e2c19f09640470b186364cac50214e34b
+    name: spark
+    urls:
+    - https://qubole.github.io/charts/spark-0.1.0.tgz
+    version: 0.1.0
+generated: "2019-12-27T08:37:12.462245522Z"

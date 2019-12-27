@@ -1,0 +1,5 @@
+To Access Kibana run the following command:
+
+    kubectl -n {{ .Release.Namespace }} port-forward svc/{{ .Release.Name }}-kibana 5601
+
+Access the kibana UI and go to discover section, create an index with the key `logstash-*`
