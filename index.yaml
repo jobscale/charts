@@ -3,7 +3,7 @@ entries:
   hive-metastore:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-12-27T08:37:12.466182882Z"
+    created: "2019-12-27T08:40:35.721784064Z"
     dependencies:
     - condition: mysql.enabled
       name: mysql
@@ -18,7 +18,7 @@ entries:
   logging:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-12-27T08:37:12.483375251Z"
+    created: "2019-12-27T08:40:35.738497798Z"
     dependencies:
     - condition: kibana.enabled
       name: kibana
@@ -40,7 +40,7 @@ entries:
     version: 0.1.1
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-12-27T08:37:12.47473359Z"
+    created: "2019-12-27T08:40:35.73033481Z"
     dependencies:
     - condition: kibana.enabled
       name: kibana
@@ -67,7 +67,7 @@ entries:
   monitoring:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-12-27T08:37:12.49517156Z"
+    created: "2019-12-27T08:40:35.749895917Z"
     dependencies:
     - condition: prometheus.enabled
       name: prometheus
@@ -83,7 +83,7 @@ entries:
       version: 4.2.2
     description: A Helm chart for setting up Monitoring Framework using Prometheus
       on Kubernetes
-    digest: a7a582ed9a4916aac03e8ebe41c1adfbdb803bdc7faa3588ebb3ecdead9317c2
+    digest: 963f025e55862d06be59cb79ea21ec32ba777bc473ab1ed9b0d72c24da695cf9
     name: monitoring
     urls:
     - https://qubole.github.io/charts/monitoring-0.1.0.tgz
@@ -91,7 +91,7 @@ entries:
   spark:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-12-27T08:37:12.504257455Z"
+    created: "2019-12-27T08:40:35.758732341Z"
     dependencies:
     - condition: sparkoperator.enabled
       name: sparkoperator
@@ -102,9 +102,9 @@ entries:
       repository: https://kubernetes-charts.storage.googleapis.com/
       version: 1.1.1
     description: A Helm chart for Kubernetes
-    digest: 1a4a4268615d025de8b3d7f83d40138e2c19f09640470b186364cac50214e34b
+    digest: 90eb8e6fc911048cb38ed98bbe0f356401fee1bf19969acc189ebd942b2690c3
     name: spark
     urls:
     - https://qubole.github.io/charts/spark-0.1.0.tgz
     version: 0.1.0
-generated: "2019-12-27T08:37:12.462245522Z"
+generated: "2019-12-27T08:40:35.718074509Z"
