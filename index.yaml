@@ -3,7 +3,7 @@ entries:
   hive-metastore:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2020-01-02T14:16:38.476011992Z"
+    created: "2020-01-02T14:25:37.811126644Z"
     dependencies:
     - condition: mysql.enabled
       name: mysql
@@ -18,7 +18,7 @@ entries:
   logging:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2020-01-02T14:16:38.492456084Z"
+    created: "2020-01-02T14:25:37.82806004Z"
     dependencies:
     - condition: kibana.enabled
       name: kibana
@@ -40,7 +40,7 @@ entries:
     version: 0.1.1
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2020-01-02T14:16:38.484337532Z"
+    created: "2020-01-02T14:25:37.819739397Z"
     dependencies:
     - condition: kibana.enabled
       name: kibana
@@ -67,7 +67,7 @@ entries:
   monitoring:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2020-01-02T14:16:38.503639286Z"
+    created: "2020-01-02T14:25:37.839609034Z"
     dependencies:
     - condition: prometheus.enabled
       name: prometheus
@@ -83,7 +83,7 @@ entries:
       version: 4.2.2
     description: A Helm chart for setting up Monitoring Framework using Prometheus
       on Kubernetes
-    digest: d3c2ff326e14fde2265203814b3d6df82a789bee6caa697e3cdddce7475dcdd9
+    digest: 8413ae66aafc09c9f06bdd7cea46972b6f755d4ba57787ee85064101e2240b27
     name: monitoring
     urls:
     - https://qubole.github.io/charts/monitoring-0.1.0.tgz
@@ -91,7 +91,7 @@ entries:
   spark:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2020-01-02T14:16:38.512298241Z"
+    created: "2020-01-02T14:25:37.847768503Z"
     dependencies:
     - condition: sparkoperator.enabled
       name: sparkoperator
@@ -102,9 +102,9 @@ entries:
       repository: https://kubernetes-charts.storage.googleapis.com/
       version: 1.1.1
     description: A Helm chart for Kubernetes Spark Operator
-    digest: fac099a94e799c197055d7da7a75267b79478ebfa0cbba6373ad2e819167401c
+    digest: 9b7921a7114f9762993a83a0c90a6429c58be10e6e4ca7417499b77509a1e4ec
     name: spark
     urls:
     - https://qubole.github.io/charts/spark-0.1.0.tgz
     version: 0.1.0
-generated: "2020-01-02T14:16:38.472182167Z"
+generated: "2020-01-02T14:25:37.806928055Z"

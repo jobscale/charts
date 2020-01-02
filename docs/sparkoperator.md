@@ -22,11 +22,11 @@ kubectl create -k kustomize/spark/base/
 ```
 
 
-## Creating Jar for Spark-Submit
+### Creating Jar for Spark-Submit
 
 ```bash
 # build docker image
-cd stable/spark
+cd stable/spark/examples
 docker build -t spark-scala-jar-builder .
 
 # place your .scala file in stable/spark/examples/scripts directory
@@ -48,8 +48,13 @@ docker run -it -v $(pwd):/examples spark-scala-jar-builder sh /examples/scripts/
 3. kubectl apply -f `stable/spark/examples/spark-tpc-ds-create-tables.yaml`
 
 
-## Access Spark History Server UI
+### Access Spark History Server UI
 
 ```bash
-
+kubectl port-forward -n spark svc/spark-spark-history-server 18080
+# access at http://localhost:18080
 ```
+
+### Helm Configuration Options
+
+Refer: https://github.com/GoogleCloudPlatform/spark-on-k8s-operator/blob/master/docs/api-docs.md
