@@ -46,6 +46,32 @@ steps:
            helm lint $d
            helm template $d | kubeval --strict --ignore-missing-schemas
          done
+---
+kind: pipeline
+type: docker
+name: Kustomize Test
+
+workspace:
+  base: /build
+
+steps:
+  - name: build
+    image: alpine/helm:3.0.0
+    commands:
+      - apk update && apk add curl
+      - |
+        mkdir -p /tmp/tools && \
+        cd /tmp/tools && \
+        wget https://github.com/instrumenta/kubeval/releases/latest/download/kubeval-linux-amd64.tar.gz && tar xf kubeval-linux-amd64.tar.gz && mv kubeval /bin/kubeval
+      - |
+        curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl && \
+        chmod +x kubectl && mv kubectl /bin/kubectl
+      - |
+        cd /build
+        for d in kustomize/*/*/; do
+           echo "Kustomize Validating chart $d"
+           kubectl kustomize $d | kubeval --strict --ignore-missing-schemas
+         done
 
 ---
 kind: pipeline
@@ -93,3 +119,4 @@ trigger:
 depends_on:
   - Helm v2 Check
   - Helm v3 Check
+  - Kustomize Test

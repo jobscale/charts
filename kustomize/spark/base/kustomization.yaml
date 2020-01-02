@@ -1,0 +1,58 @@
+# Each entry in this list results in the creation of
+# one ConfigMap resource (it's a generator of n maps).
+configMapGenerator:
+- literals:
+  - accessKeyID=<AWS ACCESS KEY ID HERE>
+  - accessKeyName=aws-access-key
+  - enableGCS=false
+  - enableIAM=false
+  - enablePVC=false
+  - enableS3=true
+  - enableWASBS=false
+  - logDirectory=s3a://joylalchattaraj/hybrid/spark-history/
+  - secret=aws-secrets
+  - secretAccessKey=<AWS SECRET ACCESS KEY HERE>
+  - secretKeyName=aws-secret-key
+  name: spark-spark-history-server
+
+generatorOptions:
+  disableNameSuffixHash: true
+
+# Images modify the tags for images without
+# creating patches.
+images:
+- name: gcr.io/spark-operator/spark-operator
+  newTag: v1beta2-1.0.1-2.4.4
+- name: lightbend/spark-history-server
+  newTag: 2.4.0
+
+# List of resource files that kustomize reads, modifies
+# and emits as a YAML string
+resources:
+- namespace-spark.yaml
+- scheduledsparkapplications.sparkoperator.k8s.io-crd.yaml
+- spark-role-binding-rb.yaml
+- spark-role-role.yaml
+- spark-sa.yaml
+- spark-spark-history-server-cr-clusterrole.yaml
+- spark-spark-history-server-crb-crb.yaml
+- spark-spark-history-server-deploy.yaml
+- spark-spark-history-server-sa.yaml
+- spark-spark-history-server-svc.yaml
+- spark-sparkoperator-cr-clusterrole.yaml
+- spark-sparkoperator-crb-crb.yaml
+- spark-sparkoperator-crd-cleanup-job.yaml
+- spark-sparkoperator-deploy.yaml
+- spark-sparkoperator-sa.yaml
+- sparkapplications.sparkoperator.k8s.io-crd.yaml
+
+# Each entry in this list results in the creation of
+# one Secret resource (it's a generator of n secrets).
+secretGenerator:
+- literals:
+  - aws-access-key=<AWS ACCESS KEY ID>
+  - aws-secret-key=<AWS SECRET ACCESS KEY>
+  name: aws-secrets
+  type: Opaque
+
+namespace: spark

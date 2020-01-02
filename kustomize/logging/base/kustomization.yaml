@@ -1,0 +1,54 @@
+# Each entry in this list results in the creation of
+# one ConfigMap resource (it's a generator of n maps).
+configMapGenerator:
+- files:
+  - fluentd-conf/input.conf
+  - fluentd-conf/general.conf
+  - fluentd-conf/install-plugins.sh
+  - fluentd-conf/output.conf
+  - fluentd-conf/system.conf
+  name: efk-fluentd
+
+generatorOptions:
+  disableNameSuffixHash: true
+
+# Images modify the tags for images without
+# creating patches.
+images:
+- name: docker.elastic.co/elasticsearch/elasticsearch
+  newTag: 7.4.1
+- name: docker.elastic.co/kibana/kibana
+  newTag: 7.4.1
+- name: fluent/fluentd-kubernetes-daemonset
+  newTag: v1.3.3-debian-forward-1.3
+- name: gcr.io/google-containers/fluentd-elasticsearch
+  newTag: v2.4.0
+
+# Value of this field is prepended to the
+# names of all resources
+namespace: qubole-logging
+# List of resource files that kustomize reads, modifies
+# and emits as a YAML string
+resources:
+- namespace-qubole-logging.yaml
+- efk-fluentd-clusterrole.yaml
+- efk-fluentd-crb.yaml
+- efk-fluentd-deploy.yaml
+- efk-fluentd-forwarder-ds.yaml
+- efk-fluentd-pvc.yaml
+- efk-fluentd-rb.yaml
+- efk-fluentd-role.yaml
+- efk-fluentd-sa.yaml
+- efk-fluentd-svc.yaml
+- efk-kibana-deploy.yaml
+- efk-kibana-svc.yaml
+- efk-logging-forwarder-clusterrole.yaml
+- efk-logging-forwarder-crb.yaml
+- efk-logging-forwarder-sa.yaml
+- elasticsearch-master-headless-svc.yaml
+- elasticsearch-master-pdb-pdb.yaml
+- elasticsearch-master-rb.yaml
+- elasticsearch-master-role.yaml
+- elasticsearch-master-sa.yaml
+- elasticsearch-master-statefulset.yaml
+- elasticsearch-master-svc.yaml

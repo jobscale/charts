@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+    app: prometheus
+    component: kube-state-metrics
+  name: metrics-prometheus-kube-state-metrics

@@ -258,7 +258,7 @@ prometheus-adapter:
 
   # Url to access prometheus
   prometheus:
-    url: http://metrics-prometheus-server.kube-monitoring.svc
+    url: http://metrics-prometheus-server.qubole-monitoring.svc
     port: 80
 
   replicas: 1

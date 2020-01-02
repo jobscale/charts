@@ -1,0 +1,14 @@
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: RoleBinding
+metadata:
+  labels:
+    app: fluentd
+  name: efk-fluentd
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: efk-fluentd
+subjects:
+- kind: ServiceAccount
+  name: efk-fluentd
+  namespace: default

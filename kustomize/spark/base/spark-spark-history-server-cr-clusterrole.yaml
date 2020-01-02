@@ -1,0 +1,17 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/instance: spark
+    app.kubernetes.io/managed-by: Tiller
+    app.kubernetes.io/name: spark-history-server
+    helm.sh/chart: spark-history-server-1.1.1
+  name: spark-spark-history-server-cr
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - deployments
+  - pods
+  verbs:
+  - '*'

@@ -1,0 +1,111 @@
+# Each entry in this list results in the creation of
+# one ConfigMap resource (it's a generator of n maps).
+configMapGenerator:
+- name: metrics-grafana-dashboards-default
+- files:
+  - config/datasources.yaml
+  - config/download_dashboards.sh
+  - config/grafana.ini
+  name: metrics-grafana
+- files:
+  - config/prometheus.yml
+  name: metrics-prometheus-server
+- files:
+  - config/test-run.sh
+  name: metrics-grafana-test
+- files:
+  - config/config.yaml
+  name: metrics-prometheus-adapter
+- files:
+  - config/alertmanager.yml
+  name: metrics-prometheus-alertmanager
+
+generatorOptions:
+  disableNameSuffixHash: true
+
+# Images modify the tags for images without
+# creating patches.
+images:
+- name: appropriate/curl
+  newTag: latest
+- name: busybox
+  newTag: "1.30"
+- name: dduportal/bats
+  newTag: 0.4.0
+- name: directxman12/k8s-prometheus-adapter-amd64
+  newTag: v0.5.0
+- name: grafana/grafana
+  newTag: 6.5.2
+- name: jimmidyson/configmap-reload
+  newTag: v0.2.2
+- name: prom/alertmanager
+  newTag: v0.18.0
+- name: prom/node-exporter
+  newTag: v0.18.0
+- name: prom/prometheus
+  newTag: v2.13.1
+- name: prom/pushgateway
+  newTag: v0.8.0
+- name: quay.io/coreos/kube-state-metrics
+  newTag: v1.6.0
+
+# List of resource files that kustomize reads, modifies
+# and emits as a YAML string
+resources:
+- namespace-qubole-monitoring.yaml
+- metrics-grafana-clusterrole-clusterrole.yaml
+- metrics-grafana-clusterrolebinding-crb.yaml
+- metrics-grafana-deploy.yaml
+- metrics-grafana-psp.yaml
+- metrics-grafana-pvc.yaml
+- metrics-grafana-rb.yaml
+- metrics-grafana-role.yaml
+- metrics-grafana-sa.yaml
+- metrics-grafana-svc.yaml
+- metrics-prometheus-adapter-deploy.yaml
+- metrics-prometheus-adapter-sa.yaml
+- metrics-prometheus-adapter-svc.yaml
+- metrics-prometheus-alertmanager-clusterrole.yaml
+- metrics-prometheus-alertmanager-crb.yaml
+- metrics-prometheus-alertmanager-deploy.yaml
+- metrics-prometheus-alertmanager-pvc.yaml
+- metrics-prometheus-alertmanager-sa.yaml
+- metrics-prometheus-alertmanager-svc.yaml
+- metrics-prometheus-kube-state-metrics-clusterrole.yaml
+- metrics-prometheus-kube-state-metrics-crb.yaml
+- metrics-prometheus-kube-state-metrics-deploy.yaml
+- metrics-prometheus-kube-state-metrics-sa.yaml
+- metrics-prometheus-kube-state-metrics-svc.yaml
+- metrics-prometheus-node-exporter-ds.yaml
+- metrics-prometheus-node-exporter-sa.yaml
+- metrics-prometheus-node-exporter-svc.yaml
+- metrics-prometheus-pushgateway-clusterrole.yaml
+- metrics-prometheus-pushgateway-crb.yaml
+- metrics-prometheus-pushgateway-deploy.yaml
+- metrics-prometheus-pushgateway-sa.yaml
+- metrics-prometheus-pushgateway-svc.yaml
+- metrics-prometheus-server-clusterrole.yaml
+- metrics-prometheus-server-crb.yaml
+- metrics-prometheus-server-deploy.yaml
+- metrics-prometheus-server-pvc.yaml
+- metrics-prometheus-server-sa.yaml
+- metrics-prometheus-server-svc.yaml
+- prometheus-adapter-auth-reader-rb.yaml
+- prometheus-adapter-hpa-controller-crb.yaml
+- prometheus-adapter-resource-reader-clusterrole.yaml
+- prometheus-adapter-resource-reader-crb.yaml
+- prometheus-adapter-server-resources-clusterrole.yaml
+- prometheus-adapter:system:auth-delegator-crb.yaml
+- v1beta1.custom.metrics.k8s.io-apiservice.yaml
+
+# Each entry in this list results in the creation of
+# one Secret resource (it's a generator of n secrets).
+secretGenerator:
+- literals:
+  - admin-password=dUplXNB1zTX3kRCKP2GgjlNW0tjVJt19ONhpomEp
+  - admin-user=admin
+  - ldap-toml=
+  name: metrics-grafana
+  type: Opaque
+
+namespace: qubole-monitoring

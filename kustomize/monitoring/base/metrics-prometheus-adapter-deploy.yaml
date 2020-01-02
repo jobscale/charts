@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: prometheus-adapter
+  name: metrics-prometheus-adapter
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: prometheus-adapter
+  template:
+    metadata:
+      annotations:
+        checksum/config: 73a43cfe28b6b8303b736f64a2a1afa332ab5e8d9b11979130d0a064f7493073
+      labels:
+        app: prometheus-adapter
+      name: prometheus-adapter
+    spec:
+      containers:
+      - args:
+        - /adapter
+        - --secure-port=6443
+        - --cert-dir=/tmp/cert
+        - --logtostderr=true
+        - --prometheus-url=http://metrics-prometheus-server:80
+        - --metrics-relist-interval=1m
+        - --v=4
+        - --config=/etc/adapter/config.yaml
+        image: directxman12/k8s-prometheus-adapter-amd64:v0.5.0
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: https
+            scheme: HTTPS
+          initialDelaySeconds: 30
+        name: prometheus-adapter
+        ports:
+        - containerPort: 6443
+          name: https
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: https
+            scheme: HTTPS
+          initialDelaySeconds: 30
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - all
+          readOnlyRootFilesystem: true
+          runAsNonRoot: true
+          runAsUser: 10001
+        volumeMounts:
+        - mountPath: /etc/adapter/
+          name: config
+          readOnly: true
+        - mountPath: /tmp
+          name: tmp
+      serviceAccountName: metrics-prometheus-adapter
+      tolerations: []
+      volumes:
+      - configMap:
+          name: metrics-prometheus-adapter
+        name: config
+      - name: tmp

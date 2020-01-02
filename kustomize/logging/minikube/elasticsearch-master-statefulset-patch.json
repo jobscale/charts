@@ -1,0 +1,37 @@
+[
+  {
+    "op": "replace",
+    "path": "/spec/volumeClaimTemplates/0/spec/resources/requests/storage",
+    "value": "2Gi"
+  },
+  {
+    "op": "replace",
+    "path": "/spec/template/spec/containers/0/resources/requests/memory",
+    "value": "300Mi"
+  },
+  {
+    "op": "replace",
+    "path": "/spec/template/spec/containers/0/resources/limits/memory",
+    "value": "500M"
+  },
+  {
+    "op": "replace",
+    "path": "/spec/template/spec/containers/0/resources/limits/cpu",
+    "value": "300m"
+  },
+  {
+    "op": "replace",
+    "path": "/spec/template/spec/containers/0/env/5/value",
+    "value": "-Xmx128m -Xms128m"
+  },
+  {
+    "op": "replace",
+    "path": "/spec/template/spec/containers/0/env/1/value",
+    "value": "elasticsearch-master-0"
+  },
+  {
+    "op": "replace",
+    "path": "/spec/replicas",
+    "value": 1
+  }
+]

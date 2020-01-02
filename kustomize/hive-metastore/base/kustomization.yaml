@@ -1,0 +1,43 @@
+# Each entry in this list results in the creation of
+# one ConfigMap resource (it's a generator of n maps).
+configMapGenerator:
+- name: metastore-mysql-test
+- env: config/metastore-hive-metastore.env
+  name: metastore-hive-metastore
+
+generatorOptions:
+  disableNameSuffixHash: true
+
+# Images modify the tags for images without
+# creating patches.
+images:
+- name: busybox
+  newTag: 1.29.3
+- name: dduportal/bats
+  newTag: 0.4.0
+- name: gcr.io/hybrid-qubole/hive-metastore
+  newTag: latest
+- name: mysql
+  newTag: 5.7.28
+
+# namespace to install in
+namespace: hive-metastore
+
+# List of resource files that kustomize reads, modifies
+# and emits as a YAML string
+resources:
+- namespace-hive-metastore.yaml
+- metastore-hive-metastore-deploy.yaml
+- metastore-hive-metastore-svc.yaml
+- metastore-mysql-deploy.yaml
+- metastore-mysql-pvc.yaml
+- metastore-mysql-svc.yaml
+
+# Each entry in this list results in the creation of
+# one Secret resource (it's a generator of n secrets).
+secretGenerator:
+- literals:
+  - mysql-password=password
+  - mysql-root-password=O2GMETecXB
+  name: metastore-mysql
+  type: Opaque

@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/instance: spark
+    app.kubernetes.io/managed-by: Tiller
+    app.kubernetes.io/name: spark-history-server
+    helm.sh/chart: spark-history-server-1.1.1
+  name: spark-spark-history-server
+spec:
+  ports:
+  - name: historyport
+    port: 18080
+    protocol: TCP
+    targetPort: historyport
+  selector:
+    app.kubernetes.io/instance: spark
+    app.kubernetes.io/name: spark-history-server
+  type: ClusterIP

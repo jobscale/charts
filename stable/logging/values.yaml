@@ -42,6 +42,7 @@ kibana:
 elasticsearch:
   enabled: true
   replicas: 2
+  antiAffinity: soft
 
   # common values
   nameOverride: *nameOverride
@@ -228,7 +229,7 @@ fluentdForwarder:
       effect: NoSchedule
 
   forward:
-    host: efk-fluentd.kube-logging.svc.cluster.local
+    host: efk-fluentd.qubole-logging.svc.cluster.local
     port : 24224
 
   extraEnvVars:

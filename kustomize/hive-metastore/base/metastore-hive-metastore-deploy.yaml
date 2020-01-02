@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/instance: metastore
+    app.kubernetes.io/managed-by: Tiller
+    app.kubernetes.io/name: hive-metastore
+    app.kubernetes.io/version: "1.0"
+    helm.sh/chart: hive-metastore-0.1.0
+  name: metastore-hive-metastore
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: metastore
+      app.kubernetes.io/name: hive-metastore
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/instance: metastore
+        app.kubernetes.io/name: hive-metastore
+    spec:
+      containers:
+      - envFrom:
+        - configMapRef:
+            name: metastore-hive-metastore
+        image: gcr.io/hybrid-qubole/hive-metastore:latest
+        imagePullPolicy: Always
+        livenessProbe:
+          tcpSocket:
+            port: metastore
+        name: hive-metastore
+        ports:
+        - containerPort: 9083
+          name: metastore
+          protocol: TCP
+        readinessProbe:
+          tcpSocket:
+            port: metastore
+        resources:
+          limits:
+            cpu: 0.8
+            memory: 800Mi
+          requests:
+            cpu: 0.2
+            memory: 200Mi

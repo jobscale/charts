@@ -1,0 +1,94 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/instance: spark
+    app.kubernetes.io/managed-by: Tiller
+    app.kubernetes.io/name: spark-history-server
+    helm.sh/chart: spark-history-server-1.1.1
+  name: spark-spark-history-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: spark
+      app.kubernetes.io/name: spark-history-server
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/instance: spark
+        app.kubernetes.io/name: spark-history-server
+    spec:
+      containers:
+      - command:
+        - /bin/sh
+        - -c
+        - |
+          if [ "$enablePVC" == "true" ]; then
+            export SPARK_HISTORY_OPTS="$SPARK_HISTORY_OPTS \
+            -Dspark.history.fs.logDirectory=file:/data/$eventsDir";
+          elif [ "$enableGCS" == "true" ]; then
+            export SPARK_HISTORY_OPTS="$SPARK_HISTORY_OPTS \
+            -Dspark.hadoop.google.cloud.auth.service.account.json.keyfile=/etc/secrets/$key \
+            -Dspark.history.fs.logDirectory=$logDirectory";
+          elif [ "$enableS3" == "true" ]; then
+            export SPARK_HISTORY_OPTS="$SPARK_HISTORY_OPTS \
+              -Dspark.history.fs.logDirectory=$logDirectory \
+              -Dspark.hadoop.fs.s3a.impl=org.apache.hadoop.fs.s3a.S3AFileSystem";
+            if [ "$enableIAM" == "false" ]; then
+              export SPARK_HISTORY_OPTS="$SPARK_HISTORY_OPTS \
+              -Dspark.hadoop.fs.s3a.access.key=$(cat /etc/secrets/${accessKeyName}) \
+              -Dspark.hadoop.fs.s3a.secret.key=$(cat /etc/secrets/${secretKeyName})";
+            fi;
+          elif [ "$enableWASBS" == "true" ]; then
+            container=$(cat /etc/secrets/${containerKeyName})
+            storageAccount=$(cat /etc/secrets/${storageAccountNameKeyName})
+
+            export SPARK_HISTORY_OPTS="$SPARK_HISTORY_OPTS \
+              -Dspark.history.fs.logDirectory=$logDirectory \
+              -Dspark.hadoop.fs.defaultFS=wasbs://$container@$storageAccount.blob.core.windows.net \
+              -Dspark.hadoop.fs.wasbs.impl=org.apache.hadoop.fs.azure.NativeAzureFileSystem \
+              -Dspark.hadoop.fs.AbstractFileSystem.wasbs.impl=org.apache.hadoop.fs.azure.Wasbs";
+            if [ "$sasKeyMode" == "true" ]; then
+              export SPARK_HISTORY_OPTS="$SPARK_HISTORY_OPTS \
+                -Dspark.hadoop.fs.azure.local.sas.key.mode=true \
+                -Dspark.hadoop.fs.azure.sas.$container.$storageAccount.blob.core.windows.net=$(cat /etc/secrets/${sasKeyName})";
+            else
+              export SPARK_HISTORY_OPTS="$SPARK_HISTORY_OPTS \
+                -Dspark.hadoop.fs.azure.account.key.$storageAccount.blob.core.windows.net=$(cat /etc/secrets/${storageAccountKeyName})";
+            fi;
+          else
+            export SPARK_HISTORY_OPTS="$SPARK_HISTORY_OPTS \
+            -Dspark.history.fs.logDirectory=$logDirectory";
+          fi; /opt/spark/bin/spark-class org.apache.spark.deploy.history.HistoryServer;
+        env:
+        - name: HADOOP_CONF_DIR
+          value: /etc/hadoop
+        - name: SPARK_NO_DAEMONIZE
+          value: "true"
+        envFrom:
+        - configMapRef:
+            name: spark-spark-history-server
+        image: lightbend/spark-history-server:2.4.0
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          httpGet:
+            path: /
+            port: historyport
+        name: spark-history-server
+        ports:
+        - containerPort: 18080
+          name: historyport
+          protocol: TCP
+        readinessProbe:
+          httpGet:
+            path: /
+            port: historyport
+        volumeMounts:
+        - mountPath: /etc/secrets
+          name: secrets-volume
+      serviceAccountName: spark-spark-history-server
+      volumes:
+      - name: secrets-volume
+        secret:
+          secretName: aws-secrets
