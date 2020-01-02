@@ -3,7 +3,7 @@ entries:
   hive-metastore:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-12-27T08:40:35.721784064Z"
+    created: "2020-01-02T14:16:38.476011992Z"
     dependencies:
     - condition: mysql.enabled
       name: mysql
@@ -18,7 +18,7 @@ entries:
   logging:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-12-27T08:40:35.738497798Z"
+    created: "2020-01-02T14:16:38.492456084Z"
     dependencies:
     - condition: kibana.enabled
       name: kibana
@@ -33,14 +33,14 @@ entries:
       repository: https://kubernetes-charts.storage.googleapis.com/
       version: 2.3.2
     description: A helm chart of setup logging infra using EFK on Kubernetes
-    digest: 3e3c25a25f440f4908333aea5850fa92ed0a4113ca50b57d1881271efb21807b
+    digest: 85b7623d6623347e20965db101770f112e8ca8c906c738267605d03df15135fb
     name: logging
     urls:
     - https://qubole.github.io/charts/logging-0.1.1.tgz
     version: 0.1.1
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-12-27T08:40:35.73033481Z"
+    created: "2020-01-02T14:16:38.484337532Z"
     dependencies:
     - condition: kibana.enabled
       name: kibana
@@ -67,7 +67,7 @@ entries:
   monitoring:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-12-27T08:40:35.749895917Z"
+    created: "2020-01-02T14:16:38.503639286Z"
     dependencies:
     - condition: prometheus.enabled
       name: prometheus
@@ -83,7 +83,7 @@ entries:
       version: 4.2.2
     description: A Helm chart for setting up Monitoring Framework using Prometheus
       on Kubernetes
-    digest: 963f025e55862d06be59cb79ea21ec32ba777bc473ab1ed9b0d72c24da695cf9
+    digest: d3c2ff326e14fde2265203814b3d6df82a789bee6caa697e3cdddce7475dcdd9
     name: monitoring
     urls:
     - https://qubole.github.io/charts/monitoring-0.1.0.tgz
@@ -91,7 +91,7 @@ entries:
   spark:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-12-27T08:40:35.758732341Z"
+    created: "2020-01-02T14:16:38.512298241Z"
     dependencies:
     - condition: sparkoperator.enabled
       name: sparkoperator
@@ -101,10 +101,10 @@ entries:
       name: spark-history-server
       repository: https://kubernetes-charts.storage.googleapis.com/
       version: 1.1.1
-    description: A Helm chart for Kubernetes
-    digest: 90eb8e6fc911048cb38ed98bbe0f356401fee1bf19969acc189ebd942b2690c3
+    description: A Helm chart for Kubernetes Spark Operator
+    digest: fac099a94e799c197055d7da7a75267b79478ebfa0cbba6373ad2e819167401c
     name: spark
     urls:
     - https://qubole.github.io/charts/spark-0.1.0.tgz
     version: 0.1.0
-generated: "2019-12-27T08:40:35.718074509Z"
+generated: "2020-01-02T14:16:38.472182167Z"

@@ -1,7 +1,21 @@
-#### tl;dr;
+# Install Hive Metastore
 
+## **tl;dr;**
+
+#### Helm V2
 ```bash
 helm install --namespace hive-metastore --name metastore qubole/hive-metastore
+```
+
+#### Helm V3
+```bash
+kubectl create ns hive-metastore
+helm install --namespace hive-metastore metastore qubole/hive-metastore
+```
+
+#### Kustomize
+```bash
+kubectl create -k kustomize/hive-metastore/base/
 ```
 
 
@@ -36,3 +50,14 @@ helm install --namespace hive-metastore --name metastore qubole/hive-metastore
 | `configs.AWS_ACCESS_KEY_ID`     | AWS Access Key ID                        | ``                 |
 | `configs.AWS_SECRET_ACCESS_KEY` | AWS Secret Access Key                    | ``                 |
 
+Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
+
+```console
+$ helm install qubole/hive-metastore --name metastore \
+    --set mysql.mysqlDatabase=abc
+```
+
+## Access Thrift Metastore URL:
+```text
+thrift://metastore-hive-metastore.hive-metastore.svc.cluster.local:9083
+```

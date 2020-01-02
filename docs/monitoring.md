@@ -9,10 +9,38 @@ helm repo update
 ```
 
 
-#### **tl;dr;**
+## **Install**
+
+#### Helm v2
+```bash
+helm --namespace qubole-monitoring --name metrics install qubole/monitoring
+```
+
+#### Helm V3
+```bash
+kubectl create ns qubole-monitoring
+helm install --namespace qubole-logging metrics qubole/monitoring
+```
+
+#### Kustomize
+```bash
+kubectl create -k kustomize/monitoring/base/
+```
+
+## Accessing UI Components
+
+### Grafana
 
 ```bash
-helm --namespace kube-monitoring --name metrics install qubole/monitoring
+sudo kubectl -n qubole-monitoring port-forward svc/metrics-grafana 80
+# access at http://localhost:80
+```
+
+### Prometheus
+
+```bash
+sudo kubectl -n qubole-monitoring port-forward svc/metrics-prometheus-server 80
+# access at http://localhost:80
 ```
 
 ## Configuration Options
@@ -281,7 +309,7 @@ Parameter | Description | Default
 | `prometheus-adapter.nodeSelector`                  | Node labels for pod assignment                                                  | `{}`                                        |
 | `prometheus-adapter.podAnnotations`                | Annotations to add to the pod                                                   | `{}`                                        |
 | `prometheus-adapter.priorityClassName`             | Pod priority                                                                    | ``                                          |
-| `prometheus-adapter.prometheus.url`                | Url of where we can find the Prometheus service                                 | `http://metrics-prometheus-server.kube-monitoring.svc`|
+| `prometheus-adapter.prometheus.url`                | Url of where we can find the Prometheus service                                 | `http://metrics-prometheus-server.qubole-monitoring.svc`|
 | `prometheus-adapter.prometheus.port`               | Port of where we can find the Prometheus service, zero to omit this option      | `80`                                        |
 | `prometheus-adapter.rbac.create`                   | If true, create & use RBAC resources                                            | `true`                                      |
 | `prometheus-adapter.resources`                     | CPU/Memory resource requests/limits                                             | `{}`                                        |

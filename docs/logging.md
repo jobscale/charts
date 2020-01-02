@@ -9,9 +9,34 @@ helm repo update
 ```
 
 
-#### **tl;dr;**
+## **Install**
+
+#### Helm v2
 ```bash
-helm --namespace kube-logging --name efk install qubole/logging
+helm --namespace qubole-logging --name efk install qubole/logging
+```
+
+#### Helm V3
+```bash
+kubectl create ns qubole-logging
+helm install --namespace qubole-logging metastore qubole/logging
+```
+
+#### Kustomize
+```bash
+kubectl create -k kustomize/logging/base/
+```
+
+#### Kustomize (Minikube, runs on lower resources)
+```bash
+kubectl create -k kustomize/logging/minikube/
+```
+
+## Accessing Kibana UI
+
+```console
+kubectl -n qubole-logging port-forward svc/efk-kibana 5601
+# access on http://localhost:5601
 ```
 
 ## Persistence Options
@@ -21,7 +46,7 @@ helm --namespace kube-logging --name efk install qubole/logging
   * Edit the file to add S3 credentials where written as `<s3 credentials here>`
   * Then, run command:
     ```bash
-    helm --namespace kube-monitoring --name efk install qubole/logging -f ./values-elastic-s3.yaml
+    helm --namespace qubole-monitoring --name efk install qubole/logging -f ./values-elastic-s3.yaml
     ```
   
 
@@ -30,10 +55,10 @@ helm --namespace kube-logging --name efk install qubole/logging
   * If you have your own HDFS Setup:
     * Replace the configs `host efk-hadoop-hdfs-nn` and `port 50070` in the file above with your web hdfs url and port
   * If you don't have your own HDFS:
-    * Install Hadoop Chart from https://github.com/helm/charts/tree/master/stable/hadoop `helm install --name hadoop stable/hadoop --namespace kube-logging`
+    * Install Hadoop Chart from https://github.com/helm/charts/tree/master/stable/hadoop `helm install --name hadoop stable/hadoop --namespace qubole-logging`
   * Then, run command:
     ```bash
-    helm --namespace kube-monitoring --name efk install qubole/logging -f ./values-elastic-hdfs.yaml
+    helm --namespace qubole-monitoring --name efk install qubole/logging -f ./values-elastic-hdfs.yaml
     ```
   
   
@@ -43,7 +68,7 @@ helm --namespace kube-logging --name efk install qubole/logging
   * Under `extraVolumes` in the Yaml file add details to your PVC
   * Then, run command:
     ```bash
-    helm --namespace kube-monitoring --name efk install qubole/logging -f ./values-elastic-pv.yaml
+    helm --namespace qubole-monitoring --name efk install qubole/logging -f ./values-elastic-pv.yaml
     ```
   
   
@@ -82,7 +107,7 @@ helm --namespace kube-logging --name efk install qubole/logging
 | `fluentdForwarder.image.name`                    | Image URL                                | `fluent/fluentd-kubernetes-daemonset` |
 | `fluentdForwarder.image.tag`                     | Image Tag                                | `v1.3.3-debian-forward-1.3`|
 | `fluentdForwarder.image.pullPolicy`              | Image Pull Policy                        | `IfNotPresent`     |
-| `fluentdForwarder.forward.host`                  | Host url to fluentd Aggregator           | `efk-fluentd.kube-logging.svc.cluster.local` |
+| `fluentdForwarder.forward.host`                  | Host url to fluentd Aggregator           | `efk-fluentd.qubole-logging.svc.cluster.local` |
 | `fluentdForwarder.forward.port`                  | Host port to fluentd Aggregator          | `24224`            |
 | `fluentdForwarder.extraEnvVars`                  | Pass any extra env variables             | `{}`               |
 | `fluentdForwarder.serviceAccount.create`         | create Service Account or not            | `true`             |
@@ -248,13 +273,8 @@ Parameter | Description | Default
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
 
-```console
+```bash
 $ helm install qubole/logging --name efk \
     --set kibana.httpPorts=8080
 ```
 
-## Accessing Kibana UI
-
-```console
-kubectl -n kube-logging port-forward $(kubectl -n kube-logging get pods | grep kibana | awk '{print $1}') 5601:5601
-```
