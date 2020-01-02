@@ -32,14 +32,14 @@ kubectl create -k kustomize/logging/base/
 kubectl create -k kustomize/logging/minikube/
 ```
 
-## Accessing Kibana UI
+### Accessing Kibana UI
 
 ```console
 kubectl -n qubole-logging port-forward svc/efk-kibana 5601
 # access on http://localhost:5601
 ```
 
-## Persistence Options
+### Persistence Options
 
 * AWS S3
   * Download this [S3 Config File](../stable/logging/values/values-elastic-s3.yaml) and save it as `values-elastic-s3.yaml`

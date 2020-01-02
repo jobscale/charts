@@ -1,6 +1,6 @@
 # Install Hive Metastore
 
-## **tl;dr;**
+## **Install**
 
 #### Helm V2
 ```bash
@@ -57,7 +57,7 @@ $ helm install qubole/hive-metastore --name metastore \
     --set mysql.mysqlDatabase=abc
 ```
 
-## Access Thrift Metastore URL:
+### Access Thrift Metastore URL:
 ```text
 thrift://metastore-hive-metastore.hive-metastore.svc.cluster.local:9083
 ```
