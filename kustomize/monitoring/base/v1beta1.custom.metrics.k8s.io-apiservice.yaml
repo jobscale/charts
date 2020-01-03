@@ -10,6 +10,6 @@ spec:
   insecureSkipTLSVerify: true
   service:
     name: metrics-prometheus-adapter
-    namespace: default
+    namespace: qubole-monitoring
   version: v1beta1
   versionPriority: 100

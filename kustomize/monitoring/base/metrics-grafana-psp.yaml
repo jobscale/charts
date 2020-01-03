@@ -9,7 +9,6 @@ metadata:
   labels:
     app: grafana
   name: metrics-grafana
-  namespace: default
 spec:
   allowPrivilegeEscalation: false
   fsGroup:
