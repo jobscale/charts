@@ -29,5 +29,3 @@ RUN \
 
 # Set scala home for current installation
 ENV SCALA_HOME /usr/local
-
-cd /examples/scripts && export JAVA_OPTS="-Xmx512M -Xms32M"; scalac -classpath ./*:/opt/spark/jars/* -target:jvm-1.7 script-create-tables.scala
