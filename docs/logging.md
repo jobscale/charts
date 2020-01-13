@@ -19,7 +19,7 @@ helm --namespace qubole-logging --name efk install qubole/logging
 #### Helm V3
 ```bash
 kubectl create ns qubole-logging
-helm install --namespace qubole-logging metastore qubole/logging
+helm install --namespace qubole-logging efk qubole/logging
 ```
 
 #### Kustomize
@@ -46,7 +46,7 @@ kubectl -n qubole-logging port-forward svc/efk-kibana 5601
   * Edit the file to add S3 credentials where written as `<s3 credentials here>`
   * Then, run command:
     ```bash
-    helm --namespace qubole-monitoring --name efk install qubole/logging -f ./values-elastic-s3.yaml
+    helm --namespace qubole-logging --name efk install qubole/logging -f ./values-elastic-s3.yaml
     ```
   
 
@@ -58,7 +58,7 @@ kubectl -n qubole-logging port-forward svc/efk-kibana 5601
     * Install Hadoop Chart from https://github.com/helm/charts/tree/master/stable/hadoop `helm install --name hadoop stable/hadoop --namespace qubole-logging`
   * Then, run command:
     ```bash
-    helm --namespace qubole-monitoring --name efk install qubole/logging -f ./values-elastic-hdfs.yaml
+    helm --namespace qubole-logging --name efk install qubole/logging -f ./values-elastic-hdfs.yaml
     ```
   
   
@@ -68,7 +68,7 @@ kubectl -n qubole-logging port-forward svc/efk-kibana 5601
   * Under `extraVolumes` in the Yaml file add details to your PVC
   * Then, run command:
     ```bash
-    helm --namespace qubole-monitoring --name efk install qubole/logging -f ./values-elastic-pv.yaml
+    helm --namespace qubole-logging --name efk install qubole/logging -f ./values-elastic-pv.yaml
     ```
   
   
