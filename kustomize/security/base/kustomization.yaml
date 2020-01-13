@@ -1,0 +1,46 @@
+# Labels to add to all resources and selectors.
+commonLabels:
+  app: falco
+
+# Each entry in this list results in the creation of
+# one ConfigMap resource (it's a generator of n maps).
+configMapGenerator:
+- files:
+  - config/application_rules.yaml
+  - config/falco.yaml
+  - config/falco_rules.local.yaml
+  - config/falco_rules.yaml
+  - config/k8s_audit_rules.yaml
+  name: falco
+- files:
+  - config/falco-rules-new.yaml
+  - config/k8s-audit.yaml
+  - config/rules-elasticsearch.yaml
+  - config/rules-etcd.yaml
+  - config/rules-fluentd.yaml
+  - config/rules-kube-apiserver.yaml
+  - config/rules-kube-controller.yaml
+  - config/rules-kube-dashboard.yaml
+  - config/rules-kube-dns.yaml
+  - config/rules-kube-scheduler.yaml
+  - config/rules-nginx.yaml
+  name: falco-rules
+
+namespace: qubole-security
+generatorOptions:
+  disableNameSuffixHash: true
+
+# Images modify the tags for images without
+# creating patches.
+images:
+- name: docker.io/falcosecurity/falco
+  newTag: 0.18.0
+
+# List of resource files that kustomize reads, modifies
+# and emits as a YAML string
+resources:
+- namespace-qubole-security.yaml
+- falco-clusterrole.yaml
+- falco-crb.yaml
+- falco-ds.yaml
+- falco-sa.yaml

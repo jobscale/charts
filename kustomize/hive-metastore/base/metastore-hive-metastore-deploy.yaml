@@ -26,17 +26,25 @@ spec:
             name: metastore-hive-metastore
         image: gcr.io/hybrid-qubole/hive-metastore:latest
         imagePullPolicy: Always
-        livenessProbe:
-          tcpSocket:
-            port: metastore
         name: hive-metastore
         ports:
         - containerPort: 9083
           name: metastore
           protocol: TCP
+        livenessProbe:
+          tcpSocket:
+            port: metastore
+          timeoutSeconds: 3
+          periodSeconds: 60
+          successThreshold: 1
+          failureThreshold: 2
         readinessProbe:
           tcpSocket:
             port: metastore
+          timeoutSeconds: 3
+          periodSeconds: 20
+          successThreshold: 1
+          failureThreshold: 5
         resources:
           limits:
             cpu: 0.8

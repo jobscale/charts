@@ -1,0 +1,111 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: falco
+spec:
+  selector:
+    matchLabels:
+      app: falco
+      role: security
+  template:
+    metadata:
+      annotations:
+        checksum/config: 4cb1e667c06051b873b32830d8f2062eced0e905eb3f47efe23d08ec0df5e9fb
+        checksum/rules: 25000d6ba0475f9aa7c102923babb6320b5fcd404e6472253d3dc4b7cc37ef24
+      labels:
+        app: falco
+        role: security
+      name: falco
+    spec:
+      containers:
+      - args:
+        - /usr/bin/falco
+        - --cri
+        - /host/var/run/cri.sock
+        - -K
+        - /var/run/secrets/kubernetes.io/serviceaccount/token
+        - -k
+        - https://$(KUBERNETES_SERVICE_HOST)
+        - -pk
+        image: docker.io/falcosecurity/falco:0.18.0
+        imagePullPolicy: IfNotPresent
+        name: falco
+        resources:
+          limits:
+            cpu: 200m
+            memory: 1024Mi
+          requests:
+            cpu: 100m
+            memory: 512Mi
+        securityContext:
+          privileged: true
+        volumeMounts:
+        - mountPath: /host/var/run/docker.sock
+          name: docker-socket
+        - mountPath: /host/var/run/cri.sock
+          name: cri-socket
+        - mountPath: /host/dev
+          name: dev-fs
+          readOnly: true
+        - mountPath: /host/proc
+          name: proc-fs
+          readOnly: true
+        - mountPath: /host/boot
+          name: boot-fs
+          readOnly: true
+        - mountPath: /host/lib/modules
+          name: lib-modules
+          readOnly: true
+        - mountPath: /host/usr
+          name: usr-fs
+          readOnly: true
+        - mountPath: /dev/shm
+          name: dshm
+        - mountPath: /etc/falco
+          name: config-volume
+        - mountPath: /etc/falco/rules.d
+          name: rules-volume
+      serviceAccountName: falco
+      tolerations: []
+      volumes:
+      - emptyDir:
+          medium: Memory
+        name: dshm
+      - hostPath:
+          path: /var/run/docker.sock
+        name: docker-socket
+      - hostPath:
+          path: /run/containerd/containerd.sock
+        name: cri-socket
+      - hostPath:
+          path: /dev
+        name: dev-fs
+      - hostPath:
+          path: /proc
+        name: proc-fs
+      - hostPath:
+          path: /boot
+        name: boot-fs
+      - hostPath:
+          path: /lib/modules
+        name: lib-modules
+      - hostPath:
+          path: /usr
+        name: usr-fs
+      - configMap:
+          items:
+          - key: falco.yaml
+            path: falco.yaml
+          - key: falco_rules.yaml
+            path: falco_rules.yaml
+          - key: falco_rules.local.yaml
+            path: falco_rules.local.yaml
+          - key: application_rules.yaml
+            path: rules.available/application_rules.yaml
+          name: falco
+        name: config-volume
+      - configMap:
+          name: falco-rules
+        name: rules-volume
+  updateStrategy:
+    type: RollingUpdate

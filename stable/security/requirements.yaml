@@ -1,0 +1,5 @@
+dependencies:
+  - name: falco
+    version: 1.0.12
+    repository: https://kubernetes-charts.storage.googleapis.com/
+    condition: falco.enabled

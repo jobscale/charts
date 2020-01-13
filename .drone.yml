@@ -96,6 +96,7 @@ steps:
       - helm package stable/logging/ --destination /tmp/helm
       - helm package stable/monitoring/ --destination /tmp/helm
       - helm package stable/spark/ --destination /tmp/helm
+      - helm package stable/security/ --destination /tmp/helm
       - helm package stable/hive-metastore/ --destination /tmp/helm
       - mkdir -p /tmp/charts/docs/ && mkdir -p /tmp/charts/stable/ && cp -a docs/. /tmp/charts/docs/ && cp README.md /tmp/ && cp -a stable/. /tmp/charts/stable/
       - git checkout gh-pages
