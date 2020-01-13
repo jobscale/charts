@@ -19,7 +19,7 @@ helm --namespace qubole-monitoring --name metrics install qubole/monitoring
 #### Helm V3
 ```bash
 kubectl create ns qubole-monitoring
-helm install --namespace qubole-logging metrics qubole/monitoring
+helm install --namespace qubole-monitoring metrics qubole/monitoring
 ```
 
 #### Kustomize
