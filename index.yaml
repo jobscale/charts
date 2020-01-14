@@ -3,7 +3,7 @@ entries:
   hive-metastore:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2020-01-13T07:28:39.596603386Z"
+    created: "2020-01-14T06:33:15.2784752Z"
     dependencies:
     - condition: mysql.enabled
       name: mysql
@@ -18,7 +18,7 @@ entries:
   logging:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2020-01-13T07:28:39.618890415Z"
+    created: "2020-01-14T06:33:15.294377357Z"
     dependencies:
     - condition: kibana.enabled
       name: kibana
@@ -40,7 +40,7 @@ entries:
     version: 0.1.1
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2020-01-13T07:28:39.608886876Z"
+    created: "2020-01-14T06:33:15.286755562Z"
     dependencies:
     - condition: kibana.enabled
       name: kibana
@@ -67,7 +67,7 @@ entries:
   monitoring:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2020-01-13T07:28:39.638973326Z"
+    created: "2020-01-14T06:33:15.306321195Z"
     dependencies:
     - condition: prometheus.enabled
       name: prometheus
@@ -91,7 +91,7 @@ entries:
   security:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2020-01-13T07:28:39.656240107Z"
+    created: "2020-01-14T06:33:15.316790381Z"
     dependencies:
     - condition: falco.enabled
       name: falco
@@ -106,7 +106,7 @@ entries:
   spark:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2020-01-13T07:28:39.664596956Z"
+    created: "2020-01-14T06:33:15.322560545Z"
     dependencies:
     - condition: sparkoperator.enabled
       name: sparkoperator
@@ -122,4 +122,4 @@ entries:
     urls:
     - https://qubole.github.io/charts/spark-0.1.0.tgz
     version: 0.1.0
-generated: "2020-01-13T07:28:39.592864188Z"
+generated: "2020-01-14T06:33:15.275788351Z"
