@@ -42,11 +42,17 @@ helm repo update
 git clone https://github.com/qubole/charts
 
 # apply charts
+
+# modify kustomize/hive-metastore/base/config/metastore-hive-metastore.env and add your AWS Access and Secret Key
 kubectl apply -k kustomize/hive-metastore/base
+
+
 kubectl apply -k kustomize/logging/base
 kubectl apply -k kustomize/monitoring/base
 kubectl apply -k kustomize/presto/base
 kubectl apply -k kustomize/security/base
+
+# modify kustomize/spark/base/kustomization.yaml and add your aws access and secrey key to <AWS ACCESS KEY ID> and <AWS SECRET ACCESS KEY>
 kubectl apply -k kustomize/spark
 
 ```
