@@ -35,3 +35,18 @@ helm repo update
 * [Spark (Operator and History Server)](docs/sparkoperator.md)
 * [Security (Falco)](docs/security.md)
 * [Presto Operator](docs/presto-operator.md)
+
+### Install All Components:
+
+```bash
+git clone https://github.com/qubole/charts
+
+# apply charts
+kubectl apply -k kustomize/hive-metastore/base
+kubectl apply -k kustomize/logging/base
+kubectl apply -k kustomize/monitoring/base
+kubectl apply -k kustomize/presto/base
+kubectl apply -k kustomize/security/base
+kubectl apply -k kustomize/spark
+
+```

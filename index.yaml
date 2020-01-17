@@ -3,7 +3,7 @@ entries:
   hive-metastore:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2020-01-17T10:42:33.752430657Z"
+    created: "2020-01-17T10:57:28.894457473Z"
     dependencies:
     - condition: mysql.enabled
       name: mysql
@@ -18,7 +18,7 @@ entries:
   logging:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2020-01-17T10:42:33.768496919Z"
+    created: "2020-01-17T10:57:28.910397709Z"
     dependencies:
     - condition: kibana.enabled
       name: kibana
@@ -40,7 +40,7 @@ entries:
     version: 0.1.1
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2020-01-17T10:42:33.760640555Z"
+    created: "2020-01-17T10:57:28.902540243Z"
     dependencies:
     - condition: kibana.enabled
       name: kibana
@@ -67,7 +67,7 @@ entries:
   monitoring:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2020-01-17T10:42:33.780842334Z"
+    created: "2020-01-17T10:57:28.925909258Z"
     dependencies:
     - condition: prometheus.enabled
       name: prometheus
@@ -88,10 +88,25 @@ entries:
     urls:
     - https://qubole.github.io/charts/monitoring-0.1.0.tgz
     version: 0.1.0
+  presto:
+  - apiVersion: v1
+    appVersion: "1.0"
+    created: "2020-01-17T10:57:28.930172797Z"
+    dependencies:
+    - condition: superset.enabled
+      name: superset
+      repository: https://kubernetes-charts.storage.googleapis.com/
+      version: 1.1.7
+    description: A Helm chart for Kubernetes to install Presto Operator and SuperSet
+    digest: 30aab88c99e5155cefe1e2c6efd60d856239eaa056beea460ed74909a191afc1
+    name: presto
+    urls:
+    - https://qubole.github.io/charts/presto-0.1.0.tgz
+    version: 0.1.0
   security:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2020-01-17T10:42:33.791425104Z"
+    created: "2020-01-17T10:57:28.946581534Z"
     dependencies:
     - condition: falco.enabled
       name: falco
@@ -106,7 +121,7 @@ entries:
   spark:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2020-01-17T10:42:33.797275164Z"
+    created: "2020-01-17T10:57:28.952440923Z"
     dependencies:
     - condition: sparkoperator.enabled
       name: sparkoperator
@@ -122,4 +137,4 @@ entries:
     urls:
     - https://qubole.github.io/charts/spark-0.1.0.tgz
     version: 0.1.0
-generated: "2020-01-17T10:42:33.749687689Z"
+generated: "2020-01-17T10:57:28.891721758Z"
