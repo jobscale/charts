@@ -1,0 +1,49 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  creationTimestamp: null
+  name: presto-operator-manager-role
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - configmaps
+      - pods
+      - services
+    verbs:
+      - '*'
+  - apiGroups:
+      - apps
+      - autoscaling
+    resources:
+      - horizontalpodautoscalers
+    verbs:
+      - '*'
+  - apiGroups:
+      - apps
+      - extentions
+    resources:
+      - deployments
+      - statefulsets
+    verbs:
+      - '*'
+  - apiGroups:
+      - engineservice.hybrid.qubole.com
+    resources:
+      - prestoclusters
+    verbs:
+      - create
+      - delete
+      - get
+      - list
+      - patch
+      - update
+      - watch
+  - apiGroups:
+      - engineservice.hybrid.qubole.com
+    resources:
+      - prestoclusters/status
+    verbs:
+      - get
+      - patch
+      - update

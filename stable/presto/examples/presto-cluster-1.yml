@@ -1,0 +1,10 @@
+apiVersion: engineservice.hybrid.qubole.com/v1
+kind: PrestoCluster
+metadata:
+  name: meta-one-presto-cluster
+spec:
+  coordinator:
+    cpuRequest: 150m
+  worker:
+    cpuRequest: 100m
+    replicas: 3

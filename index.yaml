@@ -3,14 +3,14 @@ entries:
   hive-metastore:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2020-01-14T06:33:15.2784752Z"
+    created: "2020-01-17T10:42:33.752430657Z"
     dependencies:
     - condition: mysql.enabled
       name: mysql
       repository: https://kubernetes-charts.storage.googleapis.com/
       version: 1.6.2
     description: A Helm chart for Hive Metastore Setup
-    digest: ddf19339351a4f8da73e86ea8f774836fd606f5f5f7180acca03edfd6a171d98
+    digest: dc2d1a8a0d2372a20b95216333453e53d4c19b044710e2966f51d90e650508fb
     name: hive-metastore
     urls:
     - https://qubole.github.io/charts/hive-metastore-0.1.0.tgz
@@ -18,7 +18,7 @@ entries:
   logging:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2020-01-14T06:33:15.294377357Z"
+    created: "2020-01-17T10:42:33.768496919Z"
     dependencies:
     - condition: kibana.enabled
       name: kibana
@@ -33,14 +33,14 @@ entries:
       repository: https://kubernetes-charts.storage.googleapis.com/
       version: 2.3.2
     description: A helm chart of setup logging infra using EFK on Kubernetes
-    digest: 84460a58991d927c6b99df87d65bf8ff17f20fb6e9aa3b1a073329dda314c7c9
+    digest: 19bf0c9786e2eac52ff2ce271a70c39364576a1c4c86be582ffd9c5e7cf320de
     name: logging
     urls:
     - https://qubole.github.io/charts/logging-0.1.1.tgz
     version: 0.1.1
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2020-01-14T06:33:15.286755562Z"
+    created: "2020-01-17T10:42:33.760640555Z"
     dependencies:
     - condition: kibana.enabled
       name: kibana
@@ -67,7 +67,7 @@ entries:
   monitoring:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2020-01-14T06:33:15.306321195Z"
+    created: "2020-01-17T10:42:33.780842334Z"
     dependencies:
     - condition: prometheus.enabled
       name: prometheus
@@ -91,7 +91,7 @@ entries:
   security:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2020-01-14T06:33:15.316790381Z"
+    created: "2020-01-17T10:42:33.791425104Z"
     dependencies:
     - condition: falco.enabled
       name: falco
@@ -106,7 +106,7 @@ entries:
   spark:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2020-01-14T06:33:15.322560545Z"
+    created: "2020-01-17T10:42:33.797275164Z"
     dependencies:
     - condition: sparkoperator.enabled
       name: sparkoperator
@@ -122,4 +122,4 @@ entries:
     urls:
     - https://qubole.github.io/charts/spark-0.1.0.tgz
     version: 0.1.0
-generated: "2020-01-14T06:33:15.275788351Z"
+generated: "2020-01-17T10:42:33.749687689Z"

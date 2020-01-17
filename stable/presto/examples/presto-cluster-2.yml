@@ -1,0 +1,41 @@
+apiVersion: engineservice.hybrid.qubole.com/v1
+kind: PrestoCluster
+metadata:
+  name: meta-two-presto-cluster
+spec:
+  bootstrapScriptVolumes:
+    - configMap:
+        name: special-config-1
+    - configMap:
+        name: special-config-2
+  monitoring:
+    prometheus: 
+      enable: true
+      rules:
+        - pattern: "com.facebook.presto.execution:name=QueryManager:RunningQueries"
+          type: GAUGE
+        - pattern: "com.facebook.presto.execution:name=QueryManager:FailedQueries.FiveMinute.Count"
+          type: GAUGE
+        - pattern: "com.facebook.presto.execution:name=QueryManager:QueuedQueries.FiveMinute.Count"
+          type: GAUGE
+        - pattern: "jvm_gc_collection_seconds"
+          type: GAUGE
+  additionalCatalogs:
+    hive.properties: |
+      connector.name=hive-hadoop2
+      hive.metastore.uri=thrift://metastore-hive-metastore.hive-metastore:9083
+  coordinator:
+    cpuLimit: "600Mi"
+    additionalProperties: |
+      coordinator=true
+      http-server.http.port=8080
+      discovery-server.enabled=true
+      discovery.uri=http://presto-service-meta-two-presto-cluster.default:8080
+  worker:
+    replicas: 3
+    additionalProperties: |
+      coordinator=false
+      http-server.http.port=8080
+      discovery.uri=http://presto-service-meta-two-presto-cluster.default:8080
+  service:
+    type: LoadBalancer
