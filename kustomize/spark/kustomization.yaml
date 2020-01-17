@@ -1,0 +1,7 @@
+bases:
+  - base
+
+resources:
+  - spark-role-role.yaml
+  - spark-role-binding-rb.yaml
+  - spark-sa.yaml

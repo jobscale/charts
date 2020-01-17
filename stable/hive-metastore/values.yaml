@@ -50,7 +50,7 @@ affinity: {}
 # values to put in config map
 configs:
   DB_TYPE: "mysql"
-  CONNECTION_URI: jdbc:mysql://metastore-mysql:3306/metastore
+  CONNECTION_URI: jdbc:mysql://metastore-mysql:3306/metastore?autoReconnect=true&amp;useSSL=false
   CONNECTION_USER: hive
   CONNECTION_PASSWORD: password
   CONNECTION_DRIVER: "com.mysql.jdbc.Driver"

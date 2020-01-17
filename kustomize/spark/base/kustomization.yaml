@@ -31,9 +31,6 @@ images:
 resources:
 - namespace-spark.yaml
 - scheduledsparkapplications.sparkoperator.k8s.io-crd.yaml
-- spark-role-binding-rb.yaml
-- spark-role-role.yaml
-- spark-sa.yaml
 - spark-spark-history-server-cr-clusterrole.yaml
 - spark-spark-history-server-crb-crb.yaml
 - spark-spark-history-server-deploy.yaml
@@ -41,7 +38,6 @@ resources:
 - spark-spark-history-server-svc.yaml
 - spark-sparkoperator-cr-clusterrole.yaml
 - spark-sparkoperator-crb-crb.yaml
-- spark-sparkoperator-crd-cleanup-job.yaml
 - spark-sparkoperator-deploy.yaml
 - spark-sparkoperator-sa.yaml
 - sparkapplications.sparkoperator.k8s.io-crd.yaml

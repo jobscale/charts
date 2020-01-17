@@ -1,0 +1,5 @@
+dependencies:
+  - name: superset
+    version: 1.1.7
+    repository: https://kubernetes-charts.storage.googleapis.com/
+    condition: superset.enabled

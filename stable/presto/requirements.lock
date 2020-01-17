@@ -1,0 +1,6 @@
+dependencies:
+- name: superset
+  repository: https://kubernetes-charts.storage.googleapis.com/
+  version: 1.1.7
+digest: sha256:1f358f6d33a69f0039dff87c38a70fd0aa8b8cd0fd9a1340eeaea2da1913d66c
+generated: "2020-01-17T14:30:39.573264+05:30"

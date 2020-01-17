@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: presto-superset
+  namespace: presto
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: superset
+  template:
+    metadata:
+      annotations:
+        checksum/secrets: de11d84b525b35a4bd07b6cce6da207bad7b7146c49986361a9139e5d13120af
+      labels:
+        app: superset
+      name: presto-superset
+    spec:
+      containers:
+      - args:
+        - /home/superset/init_superset.sh
+        command:
+        - /bin/bash
+        image: amancevice/superset:0.28.1
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          failureThreshold: 2
+          httpGet:
+            path: /health
+            port: http
+          initialDelaySeconds: 80
+          periodSeconds: 10
+          timeoutSeconds: 5
+        name: superset
+        ports:
+        - containerPort: 8088
+          name: http
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 2
+          httpGet:
+            path: /health
+            port: http
+          initialDelaySeconds: 60
+          periodSeconds: 10
+          timeoutSeconds: 5
+        volumeMounts:
+        - mountPath: /home/superset
+          name: superset-configs
+        - mountPath: /var/lib/superset
+          name: storage-volume
+      securityContext:
+        fsGroup: 1000
+        runAsUser: 1000
+      volumes:
+      - name: superset-configs
+        secret:
+          secretName: presto-superset
+      - name: storage-volume

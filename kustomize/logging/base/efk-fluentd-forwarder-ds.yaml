@@ -24,7 +24,7 @@ spec:
           value: efk-fluentd.qubole-logging.svc.cluster.local
         - name: FLUENT_FOWARD_PORT
           value: "24224"
-        image: fluent/fluentd-kubernetes-daemonset:v1.3.3-debian-forward-1.3
+        image: fluent/fluentd-kubernetes-daemonset:v1.8.1-debian-forward-1.0
         imagePullPolicy: IfNotPresent
         name: fluentd-forwarder
         resources:

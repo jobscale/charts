@@ -1,0 +1,43 @@
+# Labels to add to all resources and selectors.
+commonLabels:
+  app: presto
+
+# Images modify the tags for images without
+# creating patches.
+images:
+- name: amancevice/superset
+  newTag: 0.28.1
+- name: asia.gcr.io/hybrid-qubole/presto-operator
+  newTag: latest
+- name: gcr.io/kubebuilder/kube-rbac-proxy
+  newTag: v0.4.1
+
+# List of resource files that kustomize reads, modifies
+# and emits as a YAML string
+resources:
+- namespace-presto.yaml
+- presto-operator-controller-manager-deploy.yaml
+- presto-operator-controller-manager-metrics-service-svc.yaml
+- presto-operator-leader-election-role-role.yaml
+- presto-operator-leader-election-rolebinding-rb.yaml
+- presto-operator-manager-role-clusterrole.yaml
+- presto-operator-manager-rolebinding-crb.yaml
+- presto-operator-proxy-role-clusterrole.yaml
+- presto-operator-proxy-rolebinding-crb.yaml
+- presto-operator-system-ns.yaml
+- presto-superset-deploy.yaml
+- presto-superset-svc.yaml
+- prestoclusters.engineservice.hybrid.qubole.com-crd.yaml
+
+# Each entry in this list results in the creation of
+# one Secret resource (it's a generator of n secrets).
+secretGenerator:
+- files:
+  - config/init_superset.sh
+  - config/superset_config.py
+  namespace: presto
+  name: presto-superset
+  type: Opaque
+
+generatorOptions:
+  disableNameSuffixHash: true
