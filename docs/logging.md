@@ -111,7 +111,8 @@ kubectl -n qubole-logging port-forward svc/efk-kibana 5601
 | `fluentdForwarder.forward.port`                  | Host port to fluentd Aggregator          | `24224`            |
 | `fluentdForwarder.extraEnvVars`                  | Pass any extra env variables             | `{}`               |
 | `fluentdForwarder.serviceAccount.create`         | create Service Account or not            | `true`             |
-| `fluentdForwarder.tolerationst`                  | Any Tolerations for the pod              | See [values.yaml](../stable/logging/values.yaml)|
+| `fluentdForwarder.tolerations`                   | Any Tolerations for the pod              | See [values.yaml](../stable/logging/values.yaml)|
+| `fluentdForwarder.config`                        | Fluentd config for forwarder             | See [values.yaml](../stable/logging/values.yaml)|
 
 #### [Fluentd](https://github.com/helm/charts/tree/master/stable/fluentd)
 
