@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "logging.fullname" . }}-fluentd-forwarder
+  labels:
+    app: {{ template "logging.name" . }}
+    chart: {{ template "logging.chart" . }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+data:
+  {{- toYaml .Values.fluentdForwarder.config | nindent 4 }}

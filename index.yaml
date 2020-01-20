@@ -3,7 +3,7 @@ entries:
   hive-metastore:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2020-01-17T12:25:45.055508083Z"
+    created: "2020-01-20T17:43:17.895910592Z"
     dependencies:
     - condition: mysql.enabled
       name: mysql
@@ -18,7 +18,7 @@ entries:
   logging:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2020-01-17T12:25:45.072207125Z"
+    created: "2020-01-20T17:43:17.912892155Z"
     dependencies:
     - condition: kibana.enabled
       name: kibana
@@ -33,14 +33,14 @@ entries:
       repository: https://kubernetes-charts.storage.googleapis.com/
       version: 2.3.2
     description: A helm chart of setup logging infra using EFK on Kubernetes
-    digest: 19bf0c9786e2eac52ff2ce271a70c39364576a1c4c86be582ffd9c5e7cf320de
+    digest: 72b3c26d3aef05295b3c044b97a03aa8d5bfa9e22ae2a6f5b6bc7e2852bf33bf
     name: logging
     urls:
     - https://qubole.github.io/charts/logging-0.1.1.tgz
     version: 0.1.1
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2020-01-17T12:25:45.064040868Z"
+    created: "2020-01-20T17:43:17.904431445Z"
     dependencies:
     - condition: kibana.enabled
       name: kibana
@@ -67,7 +67,7 @@ entries:
   monitoring:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2020-01-17T12:25:45.083424294Z"
+    created: "2020-01-20T17:43:17.924165978Z"
     dependencies:
     - condition: prometheus.enabled
       name: prometheus
@@ -83,7 +83,7 @@ entries:
       version: 4.2.2
     description: A Helm chart for setting up Monitoring Framework using Prometheus
       on Kubernetes
-    digest: 6435586578249f12d042db864b05e85f65742ffb964021997c6bf6f1da1e39d9
+    digest: d3c2ff326e14fde2265203814b3d6df82a789bee6caa697e3cdddce7475dcdd9
     name: monitoring
     urls:
     - https://qubole.github.io/charts/monitoring-0.1.0.tgz
@@ -91,14 +91,14 @@ entries:
   presto:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2020-01-17T12:25:45.087400637Z"
+    created: "2020-01-20T17:43:17.927805734Z"
     dependencies:
     - condition: superset.enabled
       name: superset
       repository: https://kubernetes-charts.storage.googleapis.com/
       version: 1.1.7
     description: A Helm chart for Kubernetes to install Presto Operator and SuperSet
-    digest: 30aab88c99e5155cefe1e2c6efd60d856239eaa056beea460ed74909a191afc1
+    digest: 9dd98d7bd69690b2a6cbf4c0f664bcdabf29ec0d6200cc28a9c1d4745064c8e8
     name: presto
     urls:
     - https://qubole.github.io/charts/presto-0.1.0.tgz
@@ -106,7 +106,7 @@ entries:
   security:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2020-01-17T12:25:45.098282937Z"
+    created: "2020-01-20T17:43:17.938754587Z"
     dependencies:
     - condition: falco.enabled
       name: falco
@@ -121,7 +121,7 @@ entries:
   spark:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2020-01-17T12:25:45.104319351Z"
+    created: "2020-01-20T17:43:17.944688982Z"
     dependencies:
     - condition: sparkoperator.enabled
       name: sparkoperator
@@ -137,4 +137,4 @@ entries:
     urls:
     - https://qubole.github.io/charts/spark-0.1.0.tgz
     version: 0.1.0
-generated: "2020-01-17T12:25:45.051941982Z"
+generated: "2020-01-20T17:43:17.892119392Z"
