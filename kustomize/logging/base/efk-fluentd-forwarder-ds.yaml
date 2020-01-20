@@ -39,11 +39,14 @@ spec:
         - mountPath: /var/lib/docker/containers
           name: varlibdockercontainers
           readOnly: true
+        - mountPath: /fluentd/etc/
+          name: fluentd-conf
       serviceAccountName: efk-logging-forwarder
       terminationGracePeriodSeconds: 30
       tolerations:
       - effect: NoSchedule
         key: node-role.kubernetes.io/master
+      - operator: "Exists"
       volumes:
       - hostPath:
           path: /var/log
@@ -51,3 +54,6 @@ spec:
       - hostPath:
           path: /var/lib/docker/containers
         name: varlibdockercontainers
+      - name: fluentd-conf
+        configMap:
+          name: fluentd-forwarder-conf

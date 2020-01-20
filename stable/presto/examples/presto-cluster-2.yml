@@ -25,14 +25,47 @@ spec:
       connector.name=hive-hadoop2
       hive.metastore.uri=thrift://metastore-hive-metastore.hive-metastore:9083
   coordinator:
-    cpuLimit: "600Mi"
+    cpuRequest: "1500m"
+    cpuLimit: "2000m"
+    memoryLimit: "4096Mi"
+    Affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - key: cloud.google.com/gke-nodepool
+                  operator: In
+                  values:
+                    - presto-pool
+    tolerations:
+      - key: "qubole-node"
+        operator: "Equal"
+        value: "presto"
+        effect: "NoSchedule"
     additionalProperties: |
       coordinator=true
       http-server.http.port=8080
       discovery-server.enabled=true
       discovery.uri=http://presto-service-meta-two-presto-cluster.default:8080
   worker:
+    cpuRequest: "1500m"
+    cpuLimit: "2000m"
+    memoryLimit: "4096Mi"
     replicas: 3
+    Affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - key: cloud.google.com/gke-nodepool
+                  operator: In
+                  values:
+                    - presto-pool
+    tolerations:
+      - key: "qubole-node"
+        operator: "Equal"
+        value: "presto"
+        effect: "NoSchedule"
     additionalProperties: |
       coordinator=false
       http-server.http.port=8080

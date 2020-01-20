@@ -8,6 +8,13 @@ configMapGenerator:
   - fluentd-conf/output.conf
   - fluentd-conf/system.conf
   name: efk-fluentd
+- files:
+    - forwarder-conf/disable.conf
+    - forwarder-conf/fluent.conf
+    - forwarder-conf/kubernetes.conf
+    - forwarder-conf/prometheus.conf
+    - forwarder-conf/systemd.conf
+  name: fluentd-forwarder-conf
 
 generatorOptions:
   disableNameSuffixHash: true
