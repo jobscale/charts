@@ -1,2 +1,4 @@
 superset:
   enabled: true
+  persistence:
+    enabled: true

@@ -3,7 +3,7 @@ entries:
   hive-metastore:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2020-01-22T10:45:54.373527947Z"
+    created: "2020-01-22T19:43:00.216861852Z"
     dependencies:
     - condition: mysql.enabled
       name: mysql
@@ -18,7 +18,7 @@ entries:
   logging:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2020-01-22T10:45:54.390746069Z"
+    created: "2020-01-22T19:43:00.233816051Z"
     dependencies:
     - condition: kibana.enabled
       name: kibana
@@ -40,7 +40,7 @@ entries:
     version: 0.1.1
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2020-01-22T10:45:54.382112863Z"
+    created: "2020-01-22T19:43:00.225141776Z"
     dependencies:
     - condition: kibana.enabled
       name: kibana
@@ -67,7 +67,7 @@ entries:
   monitoring:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2020-01-22T10:45:54.401828368Z"
+    created: "2020-01-22T19:43:00.246431319Z"
     dependencies:
     - condition: prometheus.enabled
       name: prometheus
@@ -83,7 +83,7 @@ entries:
       version: 4.2.2
     description: A Helm chart for setting up Monitoring Framework using Prometheus
       on Kubernetes
-    digest: 8413ae66aafc09c9f06bdd7cea46972b6f755d4ba57787ee85064101e2240b27
+    digest: d3c2ff326e14fde2265203814b3d6df82a789bee6caa697e3cdddce7475dcdd9
     name: monitoring
     urls:
     - https://qubole.github.io/charts/monitoring-0.1.0.tgz
@@ -91,14 +91,14 @@ entries:
   presto:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2020-01-22T10:45:54.405788641Z"
+    created: "2020-01-22T19:43:00.249110067Z"
     dependencies:
     - condition: superset.enabled
       name: superset
       repository: https://kubernetes-charts.storage.googleapis.com/
       version: 1.1.7
     description: A Helm chart for Kubernetes to install Presto Operator and SuperSet
-    digest: 9dd98d7bd69690b2a6cbf4c0f664bcdabf29ec0d6200cc28a9c1d4745064c8e8
+    digest: 898642b5d6462e8b39fa0ed905d9ef43064b445f7eddd9fedc9388af90684de9
     name: presto
     urls:
     - https://qubole.github.io/charts/presto-0.1.0.tgz
@@ -106,7 +106,7 @@ entries:
   security:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2020-01-22T10:45:54.416852576Z"
+    created: "2020-01-22T19:43:00.259924287Z"
     dependencies:
     - condition: falco.enabled
       name: falco
@@ -121,7 +121,7 @@ entries:
   spark:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2020-01-22T10:45:54.422796016Z"
+    created: "2020-01-22T19:43:00.265841797Z"
     dependencies:
     - condition: sparkoperator.enabled
       name: sparkoperator
@@ -137,4 +137,4 @@ entries:
     urls:
     - https://qubole.github.io/charts/spark-0.1.0.tgz
     version: 0.1.0
-generated: "2020-01-22T10:45:54.369818215Z"
+generated: "2020-01-22T19:43:00.214141816Z"
