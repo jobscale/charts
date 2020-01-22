@@ -1,0 +1,32 @@
+bases:
+  - ../base
+
+configMapGenerator:
+  - name: efk-fluentd
+    behavior: merge
+    files:
+      - config/output.conf
+
+namespace: qubole-logging
+
+# generate secret for AWS configs
+secretGenerator:
+  - name: aws-secrets
+    type: Opaque
+    literals:
+    - access_key_id=<access_key_id>
+    - secret_access_key=<secret_access_key>
+    - bucket=<bucket goes here>
+    - region=<region here>
+    - path=<s3 log path goes here>
+
+patchesJson6902:
+  - target:
+      name: efk-fluentd
+      kind: Deployment
+      group: apps
+      version: v1
+    path: fluentd-aggregator-s3-conf-patch.json
+
+generatorOptions:
+  disableNameSuffixHash: true

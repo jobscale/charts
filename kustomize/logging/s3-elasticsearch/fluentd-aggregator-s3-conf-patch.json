@@ -1,0 +1,67 @@
+[
+  {
+    "op": "add",
+    "path": "/spec/template/spec/containers/0/env/-",
+    "value": {
+      "name": "AWS_ACCESS_KEY_ID",
+      "valueFrom": {
+        "secretKeyRef": {
+          "name": "aws-secrets",
+          "key": "access_key_id"
+        }
+      }
+    }
+  },
+  {
+    "op": "add",
+    "path": "/spec/template/spec/containers/0/env/-",
+    "value": {
+      "name": "AWS_SECRET_ACCESS_KEY",
+      "valueFrom": {
+        "secretKeyRef": {
+          "name": "aws-secrets",
+          "key": "secret_access_key"
+        }
+      }
+    }
+  },
+  {
+    "op": "add",
+    "path": "/spec/template/spec/containers/0/env/-",
+    "value": {
+      "name": "BUCKET",
+      "valueFrom": {
+        "secretKeyRef": {
+          "name": "aws-secrets",
+          "key": "bucket"
+        }
+      }
+    }
+  },
+  {
+    "op": "add",
+    "path": "/spec/template/spec/containers/0/env/-",
+    "value": {
+      "name": "REGION",
+      "valueFrom": {
+        "secretKeyRef": {
+          "name": "aws-secrets",
+          "key": "region"
+        }
+      }
+    }
+  },
+  {
+    "op": "add",
+    "path": "/spec/template/spec/containers/0/env/-",
+    "value": {
+      "name": "S3_PATH",
+      "valueFrom": {
+        "secretKeyRef": {
+          "name": "aws-secrets",
+          "key": "path"
+        }
+      }
+    }
+  }
+]
