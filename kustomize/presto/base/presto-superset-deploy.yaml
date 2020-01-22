@@ -1,6 +1,8 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  labels:
+    app: superset
   name: presto-superset
   namespace: presto
 spec:
@@ -57,3 +59,5 @@ spec:
         secret:
           secretName: presto-superset
       - name: storage-volume
+        persistentVolumeClaim:
+          claimName: presto-superset

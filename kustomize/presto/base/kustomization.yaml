@@ -1,7 +1,3 @@
-# Labels to add to all resources and selectors.
-commonLabels:
-  app: presto
-
 # Images modify the tags for images without
 # creating patches.
 images:
@@ -26,6 +22,7 @@ resources:
 - presto-operator-proxy-rolebinding-crb.yaml
 - presto-operator-system-ns.yaml
 - presto-superset-deploy.yaml
+- presto-superset-pvc.yaml
 - presto-superset-svc.yaml
 - prestoclusters.engineservice.hybrid.qubole.com-crd.yaml
 
@@ -35,9 +32,5 @@ secretGenerator:
 - files:
   - config/init_superset.sh
   - config/superset_config.py
-  namespace: presto
   name: presto-superset
   type: Opaque
-
-generatorOptions:
-  disableNameSuffixHash: true
