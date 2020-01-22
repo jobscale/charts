@@ -16,7 +16,8 @@ resources: &resources {}
 
 nodeSelector: &nodeSelector {}
 
-tolerations: &tolerations []
+tolerations: &tolerations
+  - operator: "Exists"
 
 affinity: &affinity {}
 
