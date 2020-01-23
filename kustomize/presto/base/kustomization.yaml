@@ -34,3 +34,7 @@ secretGenerator:
   - config/superset_config.py
   name: presto-superset
   type: Opaque
+  namespace: presto
+
+generatorOptions:
+  disableNameSuffixHash: true
