@@ -1,0 +1,16 @@
+{{- if .Values.configMap.create }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    "app.kubernetes.io/name": {{ template "jupyter.name" . }}
+    "helm.sh/chart": {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    "app.kubernetes.io/managed-by": {{ .Release.Service }}
+    "app.kubernetes.io/instance": {{ .Release.Name }}
+    "app.kubernetes.io/version": {{ .Chart.AppVersion }}
+  name: {{ template "jupyter.configMap.name" . }}
+  namespace: {{ .Release.Namespace }}
+data:
+  "jupyter_notebook_config.py": |-
+    {{ .Files.Get "jupyter_notebook_config.py" }}
+{{- end -}}

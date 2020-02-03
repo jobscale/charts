@@ -1,0 +1,18 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  labels:
+    "app.kubernetes.io/name": {{ template "jupyter.name" . }}
+    "helm.sh/chart": {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    "app.kubernetes.io/managed-by": {{ .Release.Service }}
+    "app.kubernetes.io/instance": {{ .Release.Name }}
+    "app.kubernetes.io/version": {{ .Chart.AppVersion }}
+  name: {{ template "jupyter.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  rules:
+    - http:
+        paths:
+          - backend:
+              serviceName: {{ template "jupyter.jupyter.service.name" . }}
+              servicePort: {{ .Values.jupyter.externalPort }}
