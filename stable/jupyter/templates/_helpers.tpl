@@ -53,7 +53,7 @@ Create the name of the ConfigMap to use
 Create the name of the Jupyter service
 */}}
 {{- define "jupyter.jupyter.service.name" -}}
-{{ template "jupyter.fullname" . }}-jupyter
+{{ template "jupyter.fullname" . }}
 {{- end -}}
 
 {{/*
