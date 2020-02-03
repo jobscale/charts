@@ -99,6 +99,7 @@ steps:
       - helm package stable/security/ --destination /tmp/helm
       - helm package stable/presto/ --destination /tmp/helm
       - helm package stable/hive-metastore/ --destination /tmp/helm
+      - helm package stable/jupyter/ --destination /tmp/helm
       - mkdir -p /tmp/charts/docs/ && mkdir -p /tmp/charts/stable/ && cp -a docs/. /tmp/charts/docs/ && cp README.md /tmp/ && cp -a stable/. /tmp/charts/stable/
       - git checkout gh-pages
       - rm -rf docs/ && rm -rf README.md && rm -rf stable
