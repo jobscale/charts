@@ -60,5 +60,5 @@ Create the name of the Jupyter service
 Create the name of the Jupyter notebook persistence volume claim
 */}}
 {{- define "jupyter.jupyter.pvc.name" -}}
-{{ template "jupyter.fullname" . }}-jupyter-notebook-volume
+{{ template "jupyter.fullname" . }}-notebook-volume
 {{- end -}}
