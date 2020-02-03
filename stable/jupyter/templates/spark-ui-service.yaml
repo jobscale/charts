@@ -7,7 +7,7 @@ metadata:
     "app.kubernetes.io/managed-by": {{ .Release.Service }}
     "app.kubernetes.io/instance": {{ .Release.Name }}
     "app.kubernetes.io/version": {{ .Chart.AppVersion }}
-  name: {{ template "jupyter.fullname" . }}
+  name: {{ template "jupyter.fullname" . }}-spark-ui
   namespace: {{ .Release.Namespace }}
 spec:
   selector:
