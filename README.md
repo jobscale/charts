@@ -1,4 +1,4 @@
-# Qubole Charts
+# Qubole Charts [DEPRECATED]
 
 [![Build Status](https://cloud.drone.io/api/badges/qubole/charts/status.svg)](https://cloud.drone.io/qubole/charts)
 
