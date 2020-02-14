@@ -3,7 +3,7 @@ entries:
   hive-metastore:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2020-01-23T07:08:40.184425603Z"
+    created: "2020-02-14T07:21:44.508424935Z"
     dependencies:
     - condition: mysql.enabled
       name: mysql
@@ -18,7 +18,7 @@ entries:
   logging:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2020-01-23T07:08:40.202031016Z"
+    created: "2020-02-14T07:21:44.525886162Z"
     dependencies:
     - condition: kibana.enabled
       name: kibana
@@ -33,14 +33,14 @@ entries:
       repository: https://kubernetes-charts.storage.googleapis.com/
       version: 2.3.2
     description: A helm chart of setup logging infra using EFK on Kubernetes
-    digest: 7ef5fd5b549c5d840caffdd06749b759f8e734f62248f119f2da3073437e7e2a
+    digest: 0bb0e0918aef1f10c3c94509b6af2fcc70b81ec042e30cbcc2eb3bfc921344ab
     name: logging
     urls:
     - https://qubole.github.io/charts/logging-0.1.1.tgz
     version: 0.1.1
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2020-01-23T07:08:40.19301278Z"
+    created: "2020-02-14T07:21:44.516959715Z"
     dependencies:
     - condition: kibana.enabled
       name: kibana
@@ -67,7 +67,7 @@ entries:
   monitoring:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2020-01-23T07:08:40.215001408Z"
+    created: "2020-02-14T07:21:44.544900692Z"
     dependencies:
     - condition: prometheus.enabled
       name: prometheus
@@ -83,7 +83,7 @@ entries:
       version: 4.2.2
     description: A Helm chart for setting up Monitoring Framework using Prometheus
       on Kubernetes
-    digest: d3c2ff326e14fde2265203814b3d6df82a789bee6caa697e3cdddce7475dcdd9
+    digest: 6b2b0b7a2366726669dd58cc2e7cbffa47a712dcab4c72645ef88591e2acd988
     name: monitoring
     urls:
     - https://qubole.github.io/charts/monitoring-0.1.0.tgz
@@ -91,7 +91,7 @@ entries:
   presto:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2020-01-23T07:08:40.217741918Z"
+    created: "2020-02-14T07:21:44.548772401Z"
     dependencies:
     - condition: superset.enabled
       name: superset
@@ -106,7 +106,7 @@ entries:
   security:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2020-01-23T07:08:40.228881901Z"
+    created: "2020-02-14T07:21:44.570655974Z"
     dependencies:
     - condition: falco.enabled
       name: falco
@@ -121,7 +121,7 @@ entries:
   spark:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2020-01-23T07:08:40.234891735Z"
+    created: "2020-02-14T07:21:44.576705985Z"
     dependencies:
     - condition: sparkoperator.enabled
       name: sparkoperator
@@ -132,9 +132,9 @@ entries:
       repository: https://kubernetes-charts.storage.googleapis.com/
       version: 1.1.1
     description: A Helm chart for Kubernetes Spark Operator
-    digest: 29430af123d9982f86b342d2aab54e3aa7643e8bc7960958c2cc2045a2227227
+    digest: 07c690080fe1ce18e56f891848a48d060bb6ae2456be97ad497b7f67c35ff793
     name: spark
     urls:
     - https://qubole.github.io/charts/spark-0.1.0.tgz
     version: 0.1.0
-generated: "2020-01-23T07:08:40.181572632Z"
+generated: "2020-02-14T07:21:44.505548349Z"

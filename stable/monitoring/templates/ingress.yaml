@@ -1,0 +1,21 @@
+{{- if .Values.ingress.enabled -}}
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: {{ .Release.Name }}
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+  namespace: {{ .Release.Namespace }}
+spec:
+  rules:
+    - http:
+        paths:
+          - path: {{ .Values.ingress.grafanaPath }}
+            backend:
+              serviceName: {{ .Release.Name }}-grafana
+              servicePort: {{ .Values.grafana.service.port }}
+          - path: {{ .Values.ingress.prometheusPath }}
+            backend:
+              serviceName: {{ .Release.Name }}-prometheus-server
+              servicePort: {{ .Values.prometheus.server.service.servicePort }}
+  {{- end -}}
