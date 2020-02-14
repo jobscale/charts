@@ -23,6 +23,9 @@ affinity: &affinity {}
 rbac: &RBACDefaults
   create: true
 
+ingress:
+  enabled: true
+  sparkHistoryPath: /spark-history
 
 sparkoperator:
   enabled: true
@@ -60,7 +63,7 @@ spark-history-server:
     enablePVC: false
 
   s3:
-    enableS3: true
+    enableS3: false
     enableIAM: false
     logDirectory: s3a://joylalchattaraj/hybrid/spark-history/ # add spark event log directory here
     accessKeyID: "" # aws access key ID goes here

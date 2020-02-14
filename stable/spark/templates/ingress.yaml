@@ -1,0 +1,27 @@
+{{- if .Values.ingress.enabled -}}
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: {{ template "spark.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  rules:
+    - http:
+        paths:
+          - path: {{ .Values.ingress.sparkHistoryPath }}
+            backend:
+              serviceName: {{ template "spark-history-server.fullname" . }}
+              servicePort: {{ index .Values "spark-history-server" "service" "port" }}
+          - path: /static/
+            backend:
+              serviceName: {{ template "spark-history-server.fullname" . }}
+              servicePort: {{ index .Values "spark-history-server" "service" "port" }}
+          - path: /api/v1/applications
+            backend:
+              serviceName: {{ template "spark-history-server.fullname" . }}
+              servicePort: {{ index .Values "spark-history-server" "service" "port" }}
+          - path: /history/
+            backend:
+              serviceName: {{ template "spark-history-server.fullname" . }}
+              servicePort: {{ index .Values "spark-history-server" "service" "port" }}ZZ
+  {{- end -}}

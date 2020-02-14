@@ -1,6 +1,5 @@
 apiVersion: v1
-appVersion: "1.0"
-description: A Helm chart for setting up Monitoring Framework using Prometheus on
-  Kubernetes
+appVersion: "2.13.1"
+description: Kustomize Template to Setup Monitoring Framework with Prometheus (Server, Node Metrics, Alerting and Adapter) and Grafana
 name: monitoring
-version: 0.1.0
+version: 0.2.0

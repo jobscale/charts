@@ -19,6 +19,7 @@ steps:
         for d in stable/*/; do
            echo "Validating chart $d"
            helm lint $d
+           helm template $d
            helm template $d | kubeval --strict --ignore-missing-schemas
          done
 
@@ -44,6 +45,7 @@ steps:
         for d in stable/*/; do
            echo "Validating chart $d"
            helm lint $d
+           helm template $d
            helm template $d | kubeval --strict --ignore-missing-schemas
          done
 ---

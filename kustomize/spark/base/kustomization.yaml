@@ -46,8 +46,8 @@ resources:
 # one Secret resource (it's a generator of n secrets).
 secretGenerator:
 - literals:
-  - aws-access-key=<AWS ACCESS KEY ID>
-  - aws-secret-key=<AWS SECRET ACCESS KEY>
+  - aws-access-key=
+  - aws-secret-key=
   name: aws-secrets
   type: Opaque
 

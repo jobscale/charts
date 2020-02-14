@@ -49,6 +49,7 @@ resources:
 - efk-fluentd-svc.yaml
 - efk-kibana-deploy.yaml
 - efk-kibana-svc.yaml
+- efk-kibana-ingress.yaml
 - efk-logging-forwarder-clusterrole.yaml
 - efk-logging-forwarder-crb.yaml
 - efk-logging-forwarder-sa.yaml

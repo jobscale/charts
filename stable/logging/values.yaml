@@ -24,10 +24,16 @@ rbac: &RBACDefaults
   create: true
 
 
+ingress:
+  enabled: true
+  kibanaPath: /kibana(/|$)(.*)
+
 # config for kibana dashboard: https://github.com/elastic/helm-charts/tree/master/kibana
 kibana:
   enabled: true
-
+  extraEnvs:
+    - name: SERVER_BASEPATH
+      value: /kibana
   # common values
   nameOverride: *nameOverride
   fullnameOverride: *fullnameOverride

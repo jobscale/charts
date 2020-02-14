@@ -23,6 +23,11 @@ affinity: &affinity {}
 rbac: &RBACDefaults
   create: true
 
+ingress:
+  enabled: true
+  prometheusPath: /prometheus(/|$)(.*)
+  grafanaPath: /grafana(/|$)(.*)
+
 
 # config values for prometheus setup: https://github.com/helm/charts/tree/master/stable/prometheus
 prometheus:
@@ -360,6 +365,8 @@ prometheus-adapter:
 
 grafana:
   enabled: true
+  env:
+    GF_SERVER_ROOT_URL: '%(protocol)s://%(domain)s:%(http_port)s/grafana'
   persistence:
     enabled: true
   datasources:

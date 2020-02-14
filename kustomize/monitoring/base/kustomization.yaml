@@ -90,6 +90,7 @@ resources:
 - metrics-prometheus-server-pvc.yaml
 - metrics-prometheus-server-sa.yaml
 - metrics-prometheus-server-svc.yaml
+- metrics-prometheus-server-grafana-ingress.yaml
 - prometheus-adapter-auth-reader-rb.yaml
 - prometheus-adapter-hpa-controller-crb.yaml
 - prometheus-adapter-resource-reader-clusterrole.yaml

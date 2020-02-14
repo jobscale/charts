@@ -22,6 +22,8 @@ spec:
           value: http://elasticsearch-master:9200
         - name: SERVER_HOST
           value: 0.0.0.0
+        - name: SERVER_BASEPATH
+          value: /kibana
         image: docker.elastic.co/kibana/kibana:7.4.1
         imagePullPolicy: IfNotPresent
         name: kibana
