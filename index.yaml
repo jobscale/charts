@@ -3,7 +3,7 @@ entries:
   hive-metastore:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2020-02-14T07:21:44.508424935Z"
+    created: "2020-02-16T19:20:58.833829977Z"
     dependencies:
     - condition: mysql.enabled
       name: mysql
@@ -18,7 +18,7 @@ entries:
   logging:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2020-02-14T07:21:44.525886162Z"
+    created: "2020-02-16T19:20:58.850692801Z"
     dependencies:
     - condition: kibana.enabled
       name: kibana
@@ -40,7 +40,7 @@ entries:
     version: 0.1.1
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2020-02-14T07:21:44.516959715Z"
+    created: "2020-02-16T19:20:58.842136093Z"
     dependencies:
     - condition: kibana.enabled
       name: kibana
@@ -67,7 +67,7 @@ entries:
   monitoring:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2020-02-14T07:21:44.544900692Z"
+    created: "2020-02-16T19:20:58.863328252Z"
     dependencies:
     - condition: prometheus.enabled
       name: prometheus
@@ -83,7 +83,7 @@ entries:
       version: 4.2.2
     description: A Helm chart for setting up Monitoring Framework using Prometheus
       on Kubernetes
-    digest: 6b2b0b7a2366726669dd58cc2e7cbffa47a712dcab4c72645ef88591e2acd988
+    digest: 9022a157ebc1566bf9e1851ec5c5e9b0d0818fcaf46da89d371080e0a9c6288f
     name: monitoring
     urls:
     - https://qubole.github.io/charts/monitoring-0.1.0.tgz
@@ -91,7 +91,7 @@ entries:
   presto:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2020-02-14T07:21:44.548772401Z"
+    created: "2020-02-16T19:20:58.866078402Z"
     dependencies:
     - condition: superset.enabled
       name: superset
@@ -106,7 +106,7 @@ entries:
   security:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2020-02-14T07:21:44.570655974Z"
+    created: "2020-02-16T19:20:58.876861197Z"
     dependencies:
     - condition: falco.enabled
       name: falco
@@ -121,7 +121,7 @@ entries:
   spark:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2020-02-14T07:21:44.576705985Z"
+    created: "2020-02-16T19:20:58.882845908Z"
     dependencies:
     - condition: sparkoperator.enabled
       name: sparkoperator
@@ -137,4 +137,4 @@ entries:
     urls:
     - https://qubole.github.io/charts/spark-0.1.0.tgz
     version: 0.1.0
-generated: "2020-02-14T07:21:44.505548349Z"
+generated: "2020-02-16T19:20:58.83046404Z"
